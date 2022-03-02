@@ -2,11 +2,24 @@ const last = (stack) => stack[stack.length - 1];
 
 function parse(re) {
     const stack = [[]];
+
+    /*
+        Searches the entire string for instances of an escaped b
+        that occur after an opening bracked ([) and before a closed
+        bracket (]) and matches the b
+        Then returns an array of indexes where that b matches
+        This is because a \b in a character class [] is a backspace
+    */
+    const backspaceRegex = /(?<=\[[^\]]*\\)b(?=.*\])/g;
+    const backspaces = [...re.matchAll(backspaceRegex)].map((m) => m.index);
+
     let i = 0;
     while (i < re.length) {
         const next = re[i];
 
         switch (next) {
+            // TODO: Add case for period in character class
+            // TODO: Add case for period with 's' flag
             case ".": {
                 last(stack).push({
                     type: "wildcard",
@@ -22,10 +35,6 @@ function parse(re) {
                 const escaped = re[i + 1];
                 switch (escaped) {
                     case "b": {
-                        let backspaceRegex = /(?<=\[[^\]]*\\)b(?=.*\])/g;
-                        const backspaces = [...re.matchAll(backspaceRegex)].map(
-                            (m) => m.index
-                        );
                         if (backspaces.includes(i + 1)) {
                             last(stack).push({
                                 type: "controlCharacter",
@@ -40,6 +49,7 @@ function parse(re) {
                             });
                         }
                     }
+                    break;
                     case "B": {
                         last(stack).push({
                             type: "assertion",
@@ -47,79 +57,92 @@ function parse(re) {
                             quantifier: "exactlyOne",
                         });
                     }
+                    break;
                     case "d":
                         last(stack).push({
                             type: "characterClass",
                             value: "digit",
                             quantifier: "exactlyOne",
                         });
+                    break;
                     case "D":
                         last(stack).push({
                             type: "characterClass",
                             value: "nonDigit",
                             quantifier: "exactlyOne",
                         });
+                        break;
                     case "w":
                         last(stack).push({
                             type: "characterClass",
                             value: "word",
                             quantifier: "exactlyOne",
                         });
+                        break;
                     case "W":
                         last(stack).push({
                             type: "characterClass",
                             value: "nonWord",
                             quantifier: "exactlyOne",
                         });
+                        break;
                     case "s":
                         last(stack).push({
                             type: "characterClass",
                             value: "whiteSpace",
                             quantifier: "exactlyOne",
                         });
+                        break;
                     case "S":
                         last(stack).push({
                             type: "characterClass",
                             value: "nonWhiteSpace",
                             quantifier: "exacltyOne",
                         });
+                        break;
                     case "t":
                         last(stack).push({
                             type: "characterClass",
                             value: "horizontalTab",
                             quantifier: "exacltyOne",
                         });
+                        break;
                     case "r":
                         last(stack).push({
                             type: "characterClass",
                             value: "carriageReturn",
                             quantifier: "exacltyOne",
                         });
+                        break;
                     case "n":
                         last(stack).push({
                             type: "characterClass",
                             value: "linefeed",
                             quantifier: "exacltyOne",
                         });
+                        break;
                     case "v":
                         last(stack).push({
                             type: "characterClass",
                             value: "verticalTab",
                             quantifier: "exacltyOne",
                         });
+                        break;
                     case "f":
                         last(stack).push({
                             type: "characterClass",
                             value: "formFeed",
                             quantifier: "exacltyOne",
                         });
+                        break;
                     case "0":
                         last(stack).push({
                             type: "characterClass",
                             value: "nulCharacter",
                             quantifier: "exacltyOne",
                         });
-                    case "c":
+                        break;
+                    case "c": {
                         const controlChar = re[i + 2];
                         switch (controlChar) {
                             case "a":
@@ -193,7 +216,7 @@ function parse(re) {
                                     quantifier: "exactlyOne",
                                 });
                                 i += 3;
-                                continue;
+                                break;
                             case "i":
                             case "I":
                                 last(stack).push({
@@ -202,7 +225,7 @@ function parse(re) {
                                     quantifier: "exactlyOne",
                                 });
                                 i += 3;
-                                continue;
+                                break;
                             case "j":
                             case "J":
                                 last(stack).push({
@@ -211,7 +234,7 @@ function parse(re) {
                                     quantifier: "exactlyOne",
                                 });
                                 i += 3;
-                                continue;
+                                break;
                             case "k":
                             case "K":
                                 last(stack).push({
@@ -220,7 +243,7 @@ function parse(re) {
                                     quantifier: "exactlyOne",
                                 });
                                 i += 3;
-                                continue;
+                                break;
                             case "l":
                             case "L":
                                 last(stack).push({
@@ -229,7 +252,7 @@ function parse(re) {
                                     quantifier: "exactlyOne",
                                 });
                                 i += 3;
-                                continue;
+                                break;
                             case "m":
                             case "M":
                                 last(stack).push({
@@ -238,7 +261,7 @@ function parse(re) {
                                     quantifier: "exactlyOne",
                                 });
                                 i += 3;
-                                continue;
+                                break;
                             case "n":
                             case "N":
                                 last(stack).push({
@@ -247,7 +270,7 @@ function parse(re) {
                                     quantifier: "exactlyOne",
                                 });
                                 i += 3;
-                                continue;
+                                break;
                             case "o":
                             case "O":
                                 last(stack).push({
@@ -256,7 +279,7 @@ function parse(re) {
                                     quantifier: "exactlyOne",
                                 });
                                 i += 3;
-                                continue;
+                                break;
                             case "p":
                             case "P":
                                 last(stack).push({
@@ -265,7 +288,7 @@ function parse(re) {
                                     quantifier: "exactlyOne",
                                 });
                                 i += 3;
-                                continue;
+                                break;
                             case "q":
                             case "Q":
                                 last(stack).push({
@@ -274,7 +297,7 @@ function parse(re) {
                                     quantifier: "exactlyOne",
                                 });
                                 i += 3;
-                                continue;
+                                break;
                             case "r":
                             case "R":
                                 last(stack).push({
@@ -283,7 +306,7 @@ function parse(re) {
                                     quantifier: "exactlyOne",
                                 });
                                 i += 3;
-                                continue;
+                                break;
                             case "s":
                             case "S":
                                 last(stack).push({
@@ -292,7 +315,7 @@ function parse(re) {
                                     quantifier: "exactlyOne",
                                 });
                                 i += 3;
-                                continue;
+                                break;
                             case "t":
                             case "T":
                                 last(stack).push({
@@ -301,7 +324,7 @@ function parse(re) {
                                     quantifier: "exactlyOne",
                                 });
                                 i += 3;
-                                continue;
+                                break;
                             case "u":
                             case "U":
                                 last(stack).push({
@@ -310,7 +333,7 @@ function parse(re) {
                                     quantifier: "exactlyOne",
                                 });
                                 i += 3;
-                                continue;
+                                break;
                             case "v":
                             case "V":
                                 last(stack).push({
@@ -319,7 +342,7 @@ function parse(re) {
                                     quantifier: "exactlyOne",
                                 });
                                 i += 3;
-                                continue;
+                                break;
                             case "w":
                             case "W":
                                 last(stack).push({
@@ -328,7 +351,7 @@ function parse(re) {
                                     quantifier: "exactlyOne",
                                 });
                                 i += 3;
-                                continue;
+                                break;
                             case "x":
                             case "X":
                                 last(stack).push({
@@ -337,7 +360,7 @@ function parse(re) {
                                     quantifier: "exactlyOne",
                                 });
                                 i += 3;
-                                continue;
+                                break;
                             case "y":
                             case "Y":
                                 last(stack).push({
@@ -346,7 +369,7 @@ function parse(re) {
                                     quantifier: "exactlyOne",
                                 });
                                 i += 3;
-                                continue;
+                                break;
                             case "z":
                             case "Z":
                                 last(stack).push({
@@ -355,7 +378,11 @@ function parse(re) {
                                     quantifier: "exactlyOne",
                                 });
                                 i += 3;
-                                continue;
+                                break;
+                            // Control characters only include
+                            // \ca - \cz (case insensitive)
+                            // So if the value after c is anything else,
+                            // Match literally
                             default:
                                 last(stack).push(
                                     {
@@ -375,8 +402,12 @@ function parse(re) {
                                     }
                                 );
                                 i += 3;
-                                continue;
+                                break;
                         }
+                    }
+                    break;
+                    // If there isn't a special rule about the escaped
+                    // character, treat it like a literal
                     default:
                         last(stack).push({
                             type: "element",
@@ -385,7 +416,7 @@ function parse(re) {
                         });
                 }
                 i += 2;
-                continue;
+                break;
             }
             case "(": {
                 const nextCharacter = re[i + 1];
@@ -399,7 +430,7 @@ function parse(re) {
                                 },
                             ]);
                             i += 3;
-                            continue;
+                            break;
                         case "!":
                             stack.push([
                                 {
@@ -408,7 +439,7 @@ function parse(re) {
                                 },
                             ]);
                             i += 3;
-                            continue;
+                            break;
                         case ":":
                             stack.push([
                                 {
@@ -417,8 +448,8 @@ function parse(re) {
                                 },
                             ]);
                             i += 3;
-                            continue;
-                        case "<":
+                            break;
+                        case "<": {
                             const nextVal = re[i + 3];
                             if (nextVal === "=") {
                                 stack.push([
@@ -428,7 +459,7 @@ function parse(re) {
                                     },
                                 ]);
                                 i += 4;
-                                continue;
+                                break;
                             } else if (nextVal === "!") {
                                 stack.push([
                                     {
@@ -437,8 +468,9 @@ function parse(re) {
                                     },
                                 ]);
                                 i += 4;
-                                continue;
+                                break;
                             }
+                        }
                     }
                 }
                 stack.push([
@@ -448,7 +480,7 @@ function parse(re) {
                     },
                 ]);
                 i++;
-                continue;
+                break;
             }
             case ")": {
                 if (stack.length <= 1) {
@@ -462,8 +494,9 @@ function parse(re) {
                     quantifier: label.quantifier,
                 });
                 i++;
-                continue;
+                break;
             }
+            // TODO: Add logic for negative character sets
             case "[":
                 stack.push([
                     {
@@ -472,7 +505,7 @@ function parse(re) {
                     },
                 ]);
                 i++;
-                continue;
+                break;
             case "]": {
                 if (stack.length <= 1) {
                     throw new Error(`No set to close at index ${i}`);
@@ -485,8 +518,9 @@ function parse(re) {
                     quantifier: label.quantifier,
                 });
                 i++;
-                continue;
+                break;
             }
+            // TODO: Add non-greedy logic
             case "*": {
                 const lastElement = last(last(stack));
                 if (!lastElement || lastElement.quantifier !== "exactlyOne") {
@@ -496,7 +530,7 @@ function parse(re) {
                 }
                 lastElement.quantifier = "zeroOrMore";
                 i++;
-                continue;
+                break;
             }
             case "?": {
                 const lastElement = last(last(stack));
@@ -507,7 +541,7 @@ function parse(re) {
                 }
                 lastElement.quantifier = "zeroOrOne";
                 i++;
-                continue;
+                break;
             }
             case "+": {
                 const lastElement = last(last(stack));
@@ -518,7 +552,7 @@ function parse(re) {
                 }
                 lastElement.quantifier = "oneOrMore";
                 i++;
-                continue;
+                break;
             }
             default:
                 last(stack).push({
@@ -527,7 +561,7 @@ function parse(re) {
                     quantifier: "exactlyOne",
                 });
                 i++;
-                continue;
+                break;
         }
     }
     if (stack.length !== 1) {
@@ -537,8 +571,5 @@ function parse(re) {
 }
 
 const states = parse("[abc](?<=a)\\c23((a)\\cA)+.*(?=5)");
-function parseString(key, value) {
-    if (typeof value === "string") return value;
-    return;
-}
+
 console.log(JSON.stringify(states, null, 2));

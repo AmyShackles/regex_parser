@@ -1,0 +1,42 @@
+{
+    "name": "regex_parser",
+    "version": "0.0.1",
+    "description": "A regular expression parser (work in progress)",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "prepare": "husky install"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/AmyShackles/regex_parser.git"
+    },
+    "keywords": [
+        "regex",
+        "javascript"
+    ],
+    "author": "Amy Shackles",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/AmyShackles/regex_parser/issues"
+    },
+    "homepage": "https://github.com/AmyShackles/regex_parser#readme",
+    "devDependencies": {
+        "eslint": "^8.10.0",
+        "eslint-config-prettier": "^8.4.0",
+        "husky": "^7.0.4",
+        "lint-staged": "^12.3.4",
+        "prettier": "^2.5.1"
+    },
+    "husky": {
+        "hooks": {
+            "pre-commit": "lint-staged"
+        }
+    },
+    "lint-staged": {
+        "*.js": [
+            "eslint",
+            "prettier"
+        ]
+    }
+}
