@@ -11,3 +11,12 @@ This is one of those projects that can easily get out of hand quickly.  There is
 I have tried to map out all the different parts of regular expressions I want this project to be able to handle in [this](https://trello.com/b/ffUsEjSm/organizing-chaos) Trello board.
 
 However, I have _not_ made clear what's already been implemented.  Though, I suppose since none of it is tested, it's a bit like none of it has been. 😅
+
+Steps:
+- Come up with linting/formatting rules for the project.  Those currently in place are by no means final
+- Set up linting/formatting hooks to ensure committed code is styled according to the rules of the repo (I think this part's done)
+- Go through code already written in a feverish excited fugue state and add more comments to describe what's happening where it might not be obvious
+- Split individual parts off into functions to make testing of them easier
+- Add testing for work already done
+- Once there is 100% code coverage, add a rule to enforce it
+- Continue working on building out the parser
