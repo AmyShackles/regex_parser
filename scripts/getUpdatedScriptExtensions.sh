@@ -47,7 +47,7 @@ curl https://www.unicode.org/Public/UCD/latest/ucd/ScriptExtensions.txt | awk 'B
 " &&$4!="#" &&$5!="#" &&$6!="#" &&$7!="#" &&$8!="#" &&$9!="#" &&$10!="#" &&$11!="#" &&$12!="#" &&$13!="#" &&$14!="#" &&$15!="#" &&$16!="#" &&$17!="#" &&$18!="#" &&$19!="#" &&$20!="#" &&$21!="#" &&$22!="#" &&$23!="#" &&$24!="#" &&$25=="#") {print $1, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24}
 ($1!="#" && $1!="\
 " &&$4!="#" &&$5!="#" &&$6!="#" &&$7!="#" &&$8!="#" &&$9!="#" &&$10!="#" &&$11!="#" &&$12!="#" &&$13!="#" &&$14!="#" &&$15!="#" &&$16!="#" &&$17!="#" &&$18!="#" &&$19!="#" &&$20!="#" &&$21!="#" &&$22!="#" &&$23!="#" &&$24!="#" &&$25!="#" &&$26=="#") {print $1, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25}
-($2=="Total"){gsub(/#/, "\/\/", $1); print $1, $5}' > ../utils/scriptExtensions.js
+($2=="Total"){gsub(/#/, "\/\/", $1); print $1, $5}' > ../src/utils/scriptExtensions.js
 
 # After running this script, update ../utils/scriptExtensions.js by:
 
@@ -116,5 +116,5 @@ curl https://www.unicode.org/Public/UCD/latest/ucd/ScriptExtensions.txt | awk 'B
 
 # fs.writeFileSync(`./realScriptExtensions.js`, scriptExtensions, { flag: "a" });
 # ``` to end of file
-# Run the file using `node ../utils/scriptExtensions.js`
-# Copy contents of realScriptExtensions.js and replace contents of ../utils/scriptExtensions.js with it
+# Run the file using `node ../src/utils/scriptExtensions.js`
+# Copy contents of realScriptExtensions.js and replace contents of ../src/utils/scriptExtensions.js with it

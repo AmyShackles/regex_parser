@@ -1,5 +1,4 @@
-const range = (start, stop, step) =>
-    Array.from(
+const range = (start, stop, step) => Array.from(
         { length: (stop - start) / step + 1 },
         (_, i) => start + i * step
     );
@@ -7,16 +6,14 @@ const range = (start, stop, step) =>
 function getRangeFromString(string) {
     if (string.match(/\.\./)) {
         const [, start, stop] = string.match(/(\w+)\.\.(\w+)/);
-        return range(parseInt(start, 16), parseInt(stop, 16), 1).map((a) =>
-            a.toString(16).padStart(4, "0").toUpperCase()
+        return range(parseInt(start, 16), parseInt(stop, 16), 1).map((a) => a.toString(16).padStart(4, "0").toUpperCase()
         );
     }
     return string;
 }
 
 function getRangeFromArray([start, stop]) {
-    return range(parseInt(start, 16), parseInt(stop, 16), 1).map((a) =>
-        a.toString(16).padStart(4, "0").toUpperCase()
+    return range(parseInt(start, 16), parseInt(stop, 16), 1).map((a) => a.toString(16).padStart(4, "0").toUpperCase()
     );
 }
 
@@ -35,7 +32,7 @@ function sortObject(obj) {
 }
 
 function getScriptExtensions(ex) {
-    let script_extensions = {};
+    const script_extensions = {};
     Object.entries(ex).forEach(([key, value]) => {
         let codepoints;
         if (key.match(/\.\./)) codepoints = getRangeFromString(key);
@@ -46,19 +43,17 @@ function getScriptExtensions(ex) {
                 script_extensions[se].sort(
                     (a, b) => parseInt(a, 16) - parseInt(b, 16)
                 );
-            } else {
-                if (codepoints) script_extensions[se] = [...codepoints];
+            } else if (codepoints) script_extensions[se] = [...codepoints];
                 else script_extensions[se] = [key];
-            }
         }
     });
     return sortObject(script_extensions);
 }
 
 function getScripts(scriptObj) {
-    let scripts = {};
+    const scripts = {};
     Object.entries(scriptObj).forEach(([key, value]) => {
-        let currentArr = [];
+        const currentArr = [];
         for (const val of value) {
             if (Array.isArray(val)) {
                 currentArr.push(...getRangeFromArray(val));

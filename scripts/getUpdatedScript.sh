@@ -1,7 +1,7 @@
 #!/bin/zsh
 
 curl https://www.unicode.org/Public/UCD/latest/ucd/Scripts.txt | awk 'BEGIN {OFS="\t"}($1!="#" && $1!="\
-") {print $1, $3} ($2=="Total"){gsub(/#/, "\/\/", $1); print $1, $5}' > ../utils/scripts.js
+") {print $1, $3} ($2=="Total"){gsub(/#/, "\/\/", $1); print $1, $5}' > ../src/utils/scripts.js
 
 # After running this script, update ../utils/scripts.js by:
 
@@ -27,4 +27,4 @@ curl https://www.unicode.org/Public/UCD/latest/ucd/Scripts.txt | awk 'BEGIN {OFS
 # fs.writeFileSync(`./real_scripts.js`, scripts, { flag: "a" });
 # ``` to end of file
 # Run file with node scripts.js
-# Copy contents of real_scripts.js and replace contents of ../utils/scripts.js with it
+# Copy contents of real_scripts.js and replace contents of ../src/utils/scripts.js with it

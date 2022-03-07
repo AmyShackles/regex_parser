@@ -1,10 +1,12 @@
 {
+    "author": "Amy Shackles",
     "name": "regex_parser",
     "version": "0.0.1",
     "description": "A regular expression parser (work in progress)",
-    "main": "index.js",
+    "main": "src/index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "test": "jest",
+        "test:coverage": "npm test --coverage",
         "prepare": "husky install"
     },
     "repository": {
@@ -15,7 +17,6 @@
         "regex",
         "javascript"
     ],
-    "author": "Amy Shackles",
     "license": "MIT",
     "bugs": {
         "url": "https://github.com/AmyShackles/regex_parser/issues"
@@ -24,7 +25,9 @@
     "devDependencies": {
         "eslint": "^8.10.0",
         "eslint-config-prettier": "^8.4.0",
+        "eslint-plugin-jest": "^26.1.1",
         "husky": "^7.0.4",
+        "jest": "^27.5.1",
         "lint-staged": "^12.3.4",
         "prettier": "^2.5.1"
     },
@@ -38,5 +41,8 @@
             "eslint",
             "prettier"
         ]
+    },
+    "prettier": {
+        "tabWidth": 4
     }
 }
