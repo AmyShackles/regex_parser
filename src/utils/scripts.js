@@ -88,7 +88,7 @@ module.exports = {
             "1E958",
             "1E959",
             "1E95E",
-            "1E95F",
+            "1E95F"
         ],
         Ahom: [
             "11700",
@@ -155,7 +155,7 @@ module.exports = {
             "11743",
             "11744",
             "11745",
-            "11746",
+            "11746"
         ],
         Anatolian_Hieroglyphs: [
             "14400",
@@ -740,7 +740,7 @@ module.exports = {
             "14643",
             "14644",
             "14645",
-            "14646",
+            "14646"
         ],
         Arabic: [
             "0600",
@@ -2107,7 +2107,7 @@ module.exports = {
             "1EEBA",
             "1EEBB",
             "1EEF0",
-            "1EEF1",
+            "1EEF1"
         ],
         Armenian: [
             "0531",
@@ -2205,7 +2205,7 @@ module.exports = {
             "FB14",
             "FB15",
             "FB16",
-            "FB17",
+            "FB17"
         ],
         Avestan: [
             "10B00",
@@ -2268,7 +2268,7 @@ module.exports = {
             "10B3C",
             "10B3D",
             "10B3E",
-            "10B3F",
+            "10B3F"
         ],
         Balinese: [
             "1B00",
@@ -2394,7 +2394,7 @@ module.exports = {
             "1B7B",
             "1B7C",
             "1B7D",
-            "1B7E",
+            "1B7E"
         ],
         Bamum: [
             "A6A0",
@@ -3053,7 +3053,7 @@ module.exports = {
             "16A35",
             "16A36",
             "16A37",
-            "16A38",
+            "16A38"
         ],
         Bassa_Vah: [
             "16AD0",
@@ -3091,7 +3091,7 @@ module.exports = {
             "16AF2",
             "16AF3",
             "16AF4",
-            "16AF5",
+            "16AF5"
         ],
         Batak: [
             "1BC0",
@@ -3149,7 +3149,7 @@ module.exports = {
             "1BFC",
             "1BFD",
             "1BFE",
-            "1BFF",
+            "1BFF"
         ],
         Bengali: [
             "0980",
@@ -3247,7 +3247,7 @@ module.exports = {
             "09FB",
             "09FC",
             "09FD",
-            "09FE",
+            "09FE"
         ],
         Bhaiksuki: [
             "11C00",
@@ -3346,7 +3346,7 @@ module.exports = {
             "11C69",
             "11C6A",
             "11C6B",
-            "11C6C",
+            "11C6C"
         ],
         Bopomofo: [
             "02EA",
@@ -3425,7 +3425,7 @@ module.exports = {
             "31BC",
             "31BD",
             "31BE",
-            "31BF",
+            "31BF"
         ],
         Brahmi: [
             "11000",
@@ -3542,7 +3542,7 @@ module.exports = {
             "11073",
             "11074",
             "11075",
-            "1107F",
+            "1107F"
         ],
         Braille: [
             "2800",
@@ -3800,7 +3800,7 @@ module.exports = {
             "28FC",
             "28FD",
             "28FE",
-            "28FF",
+            "28FF"
         ],
         Buginese: [
             "1A00",
@@ -3832,7 +3832,7 @@ module.exports = {
             "1A1A",
             "1A1B",
             "1A1E",
-            "1A1F",
+            "1A1F"
         ],
         Buhid: [
             "1740",
@@ -3854,7 +3854,7 @@ module.exports = {
             "1750",
             "1751",
             "1752",
-            "1753",
+            "1753"
         ],
         Canadian_Aboriginal: [
             "1400",
@@ -4582,7 +4582,7 @@ module.exports = {
             "11ABC",
             "11ABD",
             "11ABE",
-            "11ABF",
+            "11ABF"
         ],
         Carian: [
             "102A0",
@@ -4633,7 +4633,7 @@ module.exports = {
             "102CD",
             "102CE",
             "102CF",
-            "102D0",
+            "102D0"
         ],
         Caucasian_Albanian: [
             "10530",
@@ -4688,7 +4688,7 @@ module.exports = {
             "10561",
             "10562",
             "10563",
-            "1056F",
+            "1056F"
         ],
         Chakma: [
             "11100",
@@ -4761,7 +4761,7 @@ module.exports = {
             "11144",
             "11145",
             "11146",
-            "11147",
+            "11147"
         ],
         Cham: [
             "AA00",
@@ -4846,7 +4846,7 @@ module.exports = {
             "AA5C",
             "AA5D",
             "AA5E",
-            "AA5F",
+            "AA5F"
         ],
         Cherokee: [
             "13A0",
@@ -5020,7 +5020,7 @@ module.exports = {
             "ABBC",
             "ABBD",
             "ABBE",
-            "ABBF",
+            "ABBF"
         ],
         Chorasmian: [
             "10FB0",
@@ -5050,7 +5050,7 @@ module.exports = {
             "10FC8",
             "10FC9",
             "10FCA",
-            "10FCB",
+            "10FCB"
         ],
         Common: [
             "0000",
@@ -13304,7 +13304,7 @@ module.exports = {
             "E007C",
             "E007D",
             "E007E",
-            "E007F",
+            "E007F"
         ],
         Coptic: [
             "03E2",
@@ -13443,7 +13443,7 @@ module.exports = {
             "2CFC",
             "2CFD",
             "2CFE",
-            "2CFF",
+            "2CFF"
         ],
         Cuneiform: [
             "12000",
@@ -14679,7 +14679,7 @@ module.exports = {
             "12540",
             "12541",
             "12542",
-            "12543",
+            "12543"
         ],
         Cypriot: [
             "10800",
@@ -14736,7 +14736,7 @@ module.exports = {
             "10837",
             "10838",
             "1083C",
-            "1083F",
+            "1083F"
         ],
         Cypro_Minoan: [
             "12F90",
@@ -14837,7 +14837,7 @@ module.exports = {
             "12FEF",
             "12FF0",
             "12FF1",
-            "12FF2",
+            "12FF2"
         ],
         Cyrillic: [
             "0400",
@@ -15282,7 +15282,7 @@ module.exports = {
             "A69E",
             "A69F",
             "FE2E",
-            "FE2F",
+            "FE2F"
         ],
         Deseret: [
             "10400",
@@ -15364,7 +15364,7 @@ module.exports = {
             "1044C",
             "1044D",
             "1044E",
-            "1044F",
+            "1044F"
         ],
         Devanagari: [
             "0900",
@@ -15520,7 +15520,7 @@ module.exports = {
             "A8FC",
             "A8FD",
             "A8FE",
-            "A8FF",
+            "A8FF"
         ],
         Dives_Akuru: [
             "11900",
@@ -15594,7 +15594,7 @@ module.exports = {
             "11956",
             "11957",
             "11958",
-            "11959",
+            "11959"
         ],
         Dogra: [
             "11800",
@@ -15656,7 +15656,7 @@ module.exports = {
             "11838",
             "11839",
             "1183A",
-            "1183B",
+            "1183B"
         ],
         Duployan: [
             "1BC00",
@@ -15801,7 +15801,7 @@ module.exports = {
             "1BC9C",
             "1BC9D",
             "1BC9E",
-            "1BC9F",
+            "1BC9F"
         ],
         Egyptian_Hieroglyphs: [
             "13000",
@@ -16883,7 +16883,7 @@ module.exports = {
             "13435",
             "13436",
             "13437",
-            "13438",
+            "13438"
         ],
         Elbasan: [
             "10500",
@@ -16925,7 +16925,7 @@ module.exports = {
             "10524",
             "10525",
             "10526",
-            "10527",
+            "10527"
         ],
         Elymaic: [
             "10FE0",
@@ -16950,7 +16950,7 @@ module.exports = {
             "10FF3",
             "10FF4",
             "10FF5",
-            "10FF6",
+            "10FF6"
         ],
         Ethiopic: [
             "1200",
@@ -17475,7 +17475,7 @@ module.exports = {
             "1E7FB",
             "1E7FC",
             "1E7FD",
-            "1E7FE",
+            "1E7FE"
         ],
         Georgian: [
             "10A0",
@@ -17650,7 +17650,7 @@ module.exports = {
             "2D24",
             "2D25",
             "2D27",
-            "2D2D",
+            "2D2D"
         ],
         Glagolitic: [
             "2C00",
@@ -17786,7 +17786,7 @@ module.exports = {
             "1E027",
             "1E028",
             "1E029",
-            "1E02A",
+            "1E02A"
         ],
         Gothic: [
             "10330",
@@ -17815,7 +17815,7 @@ module.exports = {
             "10347",
             "10348",
             "10349",
-            "1034A",
+            "1034A"
         ],
         Grantha: [
             "11300",
@@ -17902,7 +17902,7 @@ module.exports = {
             "11371",
             "11372",
             "11373",
-            "11374",
+            "11374"
         ],
         Greek: [
             "0370",
@@ -18422,7 +18422,7 @@ module.exports = {
             "1D242",
             "1D243",
             "1D244",
-            "1D245",
+            "1D245"
         ],
         Gujarati: [
             "0A81",
@@ -18515,7 +18515,7 @@ module.exports = {
             "0AFC",
             "0AFD",
             "0AFE",
-            "0AFF",
+            "0AFF"
         ],
         Gunjala_Gondi: [
             "11D60",
@@ -18580,7 +18580,7 @@ module.exports = {
             "11DA6",
             "11DA7",
             "11DA8",
-            "11DA9",
+            "11DA9"
         ],
         Gurmukhi: [
             "0A01",
@@ -18662,7 +18662,7 @@ module.exports = {
             "0A73",
             "0A74",
             "0A75",
-            "0A76",
+            "0A76"
         ],
         Han: [
             "2E80",
@@ -112879,7 +112879,7 @@ module.exports = {
             "31347",
             "31348",
             "31349",
-            "3134A",
+            "3134A"
         ],
         Hangul: [
             "1100",
@@ -124620,7 +124620,7 @@ module.exports = {
             "FFD7",
             "FFDA",
             "FFDB",
-            "FFDC",
+            "FFDC"
         ],
         Hanifi_Rohingya: [
             "10D00",
@@ -124672,7 +124672,7 @@ module.exports = {
             "10D36",
             "10D37",
             "10D38",
-            "10D39",
+            "10D39"
         ],
         Hanunoo: [
             "1720",
@@ -124695,7 +124695,7 @@ module.exports = {
             "1731",
             "1732",
             "1733",
-            "1734",
+            "1734"
         ],
         Hatran: [
             "108E0",
@@ -124723,7 +124723,7 @@ module.exports = {
             "108FC",
             "108FD",
             "108FE",
-            "108FF",
+            "108FF"
         ],
         Hebrew: [
             "0591",
@@ -124859,7 +124859,7 @@ module.exports = {
             "FB4C",
             "FB4D",
             "FB4E",
-            "FB4F",
+            "FB4F"
         ],
         Hiragana: [
             "3041",
@@ -125241,7 +125241,7 @@ module.exports = {
             "1B150",
             "1B151",
             "1B152",
-            "1F200",
+            "1F200"
         ],
         Imperial_Aramaic: [
             "10840",
@@ -125274,7 +125274,7 @@ module.exports = {
             "1085C",
             "1085D",
             "1085E",
-            "1085F",
+            "1085F"
         ],
         Inherited: [
             "0300",
@@ -125933,7 +125933,7 @@ module.exports = {
             "E01EC",
             "E01ED",
             "E01EE",
-            "E01EF",
+            "E01EF"
         ],
         Inscriptional_Pahlavi: [
             "10B60",
@@ -125962,7 +125962,7 @@ module.exports = {
             "10B7C",
             "10B7D",
             "10B7E",
-            "10B7F",
+            "10B7F"
         ],
         Inscriptional_Parthian: [
             "10B40",
@@ -125994,7 +125994,7 @@ module.exports = {
             "10B5C",
             "10B5D",
             "10B5E",
-            "10B5F",
+            "10B5F"
         ],
         Javanese: [
             "A980",
@@ -126086,7 +126086,7 @@ module.exports = {
             "A9D8",
             "A9D9",
             "A9DE",
-            "A9DF",
+            "A9DF"
         ],
         Kaithi: [
             "11080",
@@ -126156,7 +126156,7 @@ module.exports = {
             "110C0",
             "110C1",
             "110C2",
-            "110CD",
+            "110CD"
         ],
         Kannada: [
             "0C80",
@@ -126248,7 +126248,7 @@ module.exports = {
             "0CEE",
             "0CEF",
             "0CF1",
-            "0CF2",
+            "0CF2"
         ],
         Katakana: [
             "30A1",
@@ -126570,7 +126570,7 @@ module.exports = {
             "1B164",
             "1B165",
             "1B166",
-            "1B167",
+            "1B167"
         ],
         Kayah_Li: [
             "A900",
@@ -126619,7 +126619,7 @@ module.exports = {
             "A92B",
             "A92C",
             "A92D",
-            "A92F",
+            "A92F"
         ],
         Kharoshthi: [
             "10A00",
@@ -126689,7 +126689,7 @@ module.exports = {
             "10A55",
             "10A56",
             "10A57",
-            "10A58",
+            "10A58"
         ],
         Khitan_Small_Script: [
             "16FE4",
@@ -127162,7 +127162,7 @@ module.exports = {
             "18CD2",
             "18CD3",
             "18CD4",
-            "18CD5",
+            "18CD5"
         ],
         Khmer: [
             "1780",
@@ -127310,7 +127310,7 @@ module.exports = {
             "19FC",
             "19FD",
             "19FE",
-            "19FF",
+            "19FF"
         ],
         Khojki: [
             "11200",
@@ -127374,7 +127374,7 @@ module.exports = {
             "1123B",
             "1123C",
             "1123D",
-            "1123E",
+            "1123E"
         ],
         Khudawadi: [
             "112B0",
@@ -127445,7 +127445,7 @@ module.exports = {
             "112F6",
             "112F7",
             "112F8",
-            "112F9",
+            "112F9"
         ],
         Lao: [
             "0E81",
@@ -127529,7 +127529,7 @@ module.exports = {
             "0EDC",
             "0EDD",
             "0EDE",
-            "0EDF",
+            "0EDF"
         ],
         Latin: [
             "0041",
@@ -129006,7 +129006,7 @@ module.exports = {
             "1DF1B",
             "1DF1C",
             "1DF1D",
-            "1DF1E",
+            "1DF1E"
         ],
         Lepcha: [
             "1C00",
@@ -129082,7 +129082,7 @@ module.exports = {
             "1C49",
             "1C4D",
             "1C4E",
-            "1C4F",
+            "1C4F"
         ],
         Limbu: [
             "1900",
@@ -129152,7 +129152,7 @@ module.exports = {
             "194C",
             "194D",
             "194E",
-            "194F",
+            "194F"
         ],
         Linear_A: [
             "10600",
@@ -129495,7 +129495,7 @@ module.exports = {
             "10764",
             "10765",
             "10766",
-            "10767",
+            "10767"
         ],
         Linear_B: [
             "10000",
@@ -129708,7 +129708,7 @@ module.exports = {
             "100F7",
             "100F8",
             "100F9",
-            "100FA",
+            "100FA"
         ],
         Lisu: [
             "A4D0",
@@ -129759,7 +129759,7 @@ module.exports = {
             "A4FD",
             "A4FE",
             "A4FF",
-            "11FB0",
+            "11FB0"
         ],
         Lycian: [
             "10280",
@@ -129790,7 +129790,7 @@ module.exports = {
             "10299",
             "1029A",
             "1029B",
-            "1029C",
+            "1029C"
         ],
         Lydian: [
             "10920",
@@ -129819,7 +129819,7 @@ module.exports = {
             "10937",
             "10938",
             "10939",
-            "1093F",
+            "1093F"
         ],
         Mahajani: [
             "11150",
@@ -129860,7 +129860,7 @@ module.exports = {
             "11173",
             "11174",
             "11175",
-            "11176",
+            "11176"
         ],
         Makasar: [
             "11EE0",
@@ -129887,7 +129887,7 @@ module.exports = {
             "11EF5",
             "11EF6",
             "11EF7",
-            "11EF8",
+            "11EF8"
         ],
         Malayalam: [
             "0D00",
@@ -130007,7 +130007,7 @@ module.exports = {
             "0D7C",
             "0D7D",
             "0D7E",
-            "0D7F",
+            "0D7F"
         ],
         Mandaic: [
             "0840",
@@ -130038,7 +130038,7 @@ module.exports = {
             "0859",
             "085A",
             "085B",
-            "085E",
+            "085E"
         ],
         Manichaean: [
             "10AC0",
@@ -130091,7 +130091,7 @@ module.exports = {
             "10AF3",
             "10AF4",
             "10AF5",
-            "10AF6",
+            "10AF6"
         ],
         Marchen: [
             "11C70",
@@ -130161,7 +130161,7 @@ module.exports = {
             "11CB3",
             "11CB4",
             "11CB5",
-            "11CB6",
+            "11CB6"
         ],
         Masaram_Gondi: [
             "11D00",
@@ -130238,7 +130238,7 @@ module.exports = {
             "11D56",
             "11D57",
             "11D58",
-            "11D59",
+            "11D59"
         ],
         Medefaidrin: [
             "16E40",
@@ -130331,7 +130331,7 @@ module.exports = {
             "16E97",
             "16E98",
             "16E99",
-            "16E9A",
+            "16E9A"
         ],
         Meetei_Mayek: [
             "AAE0",
@@ -130412,7 +130412,7 @@ module.exports = {
             "ABF6",
             "ABF7",
             "ABF8",
-            "ABF9",
+            "ABF9"
         ],
         Mende_Kikakui: [
             "1E800",
@@ -130627,7 +130627,7 @@ module.exports = {
             "1E8D3",
             "1E8D4",
             "1E8D5",
-            "1E8D6",
+            "1E8D6"
         ],
         Meroitic_Cursive: [
             "109A0",
@@ -130719,7 +130719,7 @@ module.exports = {
             "109FC",
             "109FD",
             "109FE",
-            "109FF",
+            "109FF"
         ],
         Meroitic_Hieroglyphs: [
             "10980",
@@ -130753,7 +130753,7 @@ module.exports = {
             "1099C",
             "1099D",
             "1099E",
-            "1099F",
+            "1099F"
         ],
         Miao: [
             "16F00",
@@ -130904,7 +130904,7 @@ module.exports = {
             "16F9C",
             "16F9D",
             "16F9E",
-            "16F9F",
+            "16F9F"
         ],
         Modi: [
             "11600",
@@ -130985,7 +130985,7 @@ module.exports = {
             "11656",
             "11657",
             "11658",
-            "11659",
+            "11659"
         ],
         Mongolian: [
             "1800",
@@ -131155,7 +131155,7 @@ module.exports = {
             "11669",
             "1166A",
             "1166B",
-            "1166C",
+            "1166C"
         ],
         Mro: [
             "16A40",
@@ -131200,7 +131200,7 @@ module.exports = {
             "16A68",
             "16A69",
             "16A6E",
-            "16A6F",
+            "16A6F"
         ],
         Multani: [
             "11280",
@@ -131240,7 +131240,7 @@ module.exports = {
             "112A6",
             "112A7",
             "112A8",
-            "112A9",
+            "112A9"
         ],
         Myanmar: [
             "1000",
@@ -131465,7 +131465,7 @@ module.exports = {
             "AA7C",
             "AA7D",
             "AA7E",
-            "AA7F",
+            "AA7F"
         ],
         Nabataean: [
             "10880",
@@ -131507,7 +131507,7 @@ module.exports = {
             "108AC",
             "108AD",
             "108AE",
-            "108AF",
+            "108AF"
         ],
         Nandinagari: [
             "119A0",
@@ -131574,7 +131574,7 @@ module.exports = {
             "119E1",
             "119E2",
             "119E3",
-            "119E4",
+            "119E4"
         ],
         New_Tai_Lue: [
             "1980",
@@ -131659,7 +131659,7 @@ module.exports = {
             "19D9",
             "19DA",
             "19DE",
-            "19DF",
+            "19DF"
         ],
         Newa: [
             "11400",
@@ -131758,7 +131758,7 @@ module.exports = {
             "1145E",
             "1145F",
             "11460",
-            "11461",
+            "11461"
         ],
         Nko: [
             "07C0",
@@ -131822,7 +131822,7 @@ module.exports = {
             "07FA",
             "07FD",
             "07FE",
-            "07FF",
+            "07FF"
         ],
         Nushu: [
             "16FE1",
@@ -132221,7 +132221,7 @@ module.exports = {
             "1B2F8",
             "1B2F9",
             "1B2FA",
-            "1B2FB",
+            "1B2FB"
         ],
         Nyiakeng_Puachue_Hmong: [
             "1E100",
@@ -132294,7 +132294,7 @@ module.exports = {
             "1E148",
             "1E149",
             "1E14E",
-            "1E14F",
+            "1E14F"
         ],
         Ogham: [
             "1680",
@@ -132325,7 +132325,7 @@ module.exports = {
             "1699",
             "169A",
             "169B",
-            "169C",
+            "169C"
         ],
         Ol_Chiki: [
             "1C50",
@@ -132375,7 +132375,7 @@ module.exports = {
             "1C7C",
             "1C7D",
             "1C7E",
-            "1C7F",
+            "1C7F"
         ],
         Old_Hungarian: [
             "10C80",
@@ -132485,7 +132485,7 @@ module.exports = {
             "10CFC",
             "10CFD",
             "10CFE",
-            "10CFF",
+            "10CFF"
         ],
         Old_Italic: [
             "10300",
@@ -132526,7 +132526,7 @@ module.exports = {
             "10323",
             "1032D",
             "1032E",
-            "1032F",
+            "1032F"
         ],
         Old_North_Arabian: [
             "10A80",
@@ -132560,7 +132560,7 @@ module.exports = {
             "10A9C",
             "10A9D",
             "10A9E",
-            "10A9F",
+            "10A9F"
         ],
         Old_Permic: [
             "10350",
@@ -132605,7 +132605,7 @@ module.exports = {
             "10377",
             "10378",
             "10379",
-            "1037A",
+            "1037A"
         ],
         Old_Persian: [
             "103A0",
@@ -132657,7 +132657,7 @@ module.exports = {
             "103D2",
             "103D3",
             "103D4",
-            "103D5",
+            "103D5"
         ],
         Old_Sogdian: [
             "10F00",
@@ -132699,7 +132699,7 @@ module.exports = {
             "10F24",
             "10F25",
             "10F26",
-            "10F27",
+            "10F27"
         ],
         Old_South_Arabian: [
             "10A60",
@@ -132733,7 +132733,7 @@ module.exports = {
             "10A7C",
             "10A7D",
             "10A7E",
-            "10A7F",
+            "10A7F"
         ],
         Old_Turkic: [
             "10C00",
@@ -132808,7 +132808,7 @@ module.exports = {
             "10C45",
             "10C46",
             "10C47",
-            "10C48",
+            "10C48"
         ],
         Old_Uyghur: [
             "10F70",
@@ -132836,7 +132836,7 @@ module.exports = {
             "10F86",
             "10F87",
             "10F88",
-            "10F89",
+            "10F89"
         ],
         Oriya: [
             "0B01",
@@ -132929,7 +132929,7 @@ module.exports = {
             "0B74",
             "0B75",
             "0B76",
-            "0B77",
+            "0B77"
         ],
         Osage: [
             "104B0",
@@ -133003,7 +133003,7 @@ module.exports = {
             "104F8",
             "104F9",
             "104FA",
-            "104FB",
+            "104FB"
         ],
         Osmanya: [
             "10480",
@@ -133045,7 +133045,7 @@ module.exports = {
             "104A6",
             "104A7",
             "104A8",
-            "104A9",
+            "104A9"
         ],
         Pahawh_Hmong: [
             "16B00",
@@ -133174,7 +133174,7 @@ module.exports = {
             "16B8C",
             "16B8D",
             "16B8E",
-            "16B8F",
+            "16B8F"
         ],
         Palmyrene: [
             "10860",
@@ -133208,7 +133208,7 @@ module.exports = {
             "1087C",
             "1087D",
             "1087E",
-            "1087F",
+            "1087F"
         ],
         Pau_Cin_Hau: [
             "11AC0",
@@ -133267,7 +133267,7 @@ module.exports = {
             "11AF5",
             "11AF6",
             "11AF7",
-            "11AF8",
+            "11AF8"
         ],
         Phags_Pa: [
             "A840",
@@ -133325,7 +133325,7 @@ module.exports = {
             "A874",
             "A875",
             "A876",
-            "A877",
+            "A877"
         ],
         Phoenician: [
             "10900",
@@ -133356,7 +133356,7 @@ module.exports = {
             "10919",
             "1091A",
             "1091B",
-            "1091F",
+            "1091F"
         ],
         Psalter_Pahlavi: [
             "10B80",
@@ -133387,7 +133387,7 @@ module.exports = {
             "10BAC",
             "10BAD",
             "10BAE",
-            "10BAF",
+            "10BAF"
         ],
         Rejang: [
             "A930",
@@ -133426,7 +133426,7 @@ module.exports = {
             "A951",
             "A952",
             "A953",
-            "A95F",
+            "A95F"
         ],
         Runic: [
             "16A0",
@@ -133514,7 +133514,7 @@ module.exports = {
             "16F5",
             "16F6",
             "16F7",
-            "16F8",
+            "16F8"
         ],
         Samaritan: [
             "0800",
@@ -133577,7 +133577,7 @@ module.exports = {
             "083B",
             "083C",
             "083D",
-            "083E",
+            "083E"
         ],
         Saurashtra: [
             "A880",
@@ -133661,7 +133661,7 @@ module.exports = {
             "A8D6",
             "A8D7",
             "A8D8",
-            "A8D9",
+            "A8D9"
         ],
         Sharada: [
             "11180",
@@ -133759,7 +133759,7 @@ module.exports = {
             "111DC",
             "111DD",
             "111DE",
-            "111DF",
+            "111DF"
         ],
         Shavian: [
             "10450",
@@ -133809,7 +133809,7 @@ module.exports = {
             "1047C",
             "1047D",
             "1047E",
-            "1047F",
+            "1047F"
         ],
         Siddham: [
             "11580",
@@ -133903,7 +133903,7 @@ module.exports = {
             "115DA",
             "115DB",
             "115DC",
-            "115DD",
+            "115DD"
         ],
         SignWriting: [
             "1D800",
@@ -134577,7 +134577,7 @@ module.exports = {
             "1DAAC",
             "1DAAD",
             "1DAAE",
-            "1DAAF",
+            "1DAAF"
         ],
         Sinhala: [
             "0D81",
@@ -134690,7 +134690,7 @@ module.exports = {
             "111F1",
             "111F2",
             "111F3",
-            "111F4",
+            "111F4"
         ],
         Sogdian: [
             "10F30",
@@ -134734,7 +134734,7 @@ module.exports = {
             "10F56",
             "10F57",
             "10F58",
-            "10F59",
+            "10F59"
         ],
         Sora_Sompeng: [
             "110D0",
@@ -134771,7 +134771,7 @@ module.exports = {
             "110F6",
             "110F7",
             "110F8",
-            "110F9",
+            "110F9"
         ],
         Soyombo: [
             "11A50",
@@ -134856,7 +134856,7 @@ module.exports = {
             "11A9F",
             "11AA0",
             "11AA1",
-            "11AA2",
+            "11AA2"
         ],
         Sundanese: [
             "1B80",
@@ -134930,7 +134930,7 @@ module.exports = {
             "1CC4",
             "1CC5",
             "1CC6",
-            "1CC7",
+            "1CC7"
         ],
         Syloti_Nagri: [
             "A800",
@@ -134977,7 +134977,7 @@ module.exports = {
             "A829",
             "A82A",
             "A82B",
-            "A82C",
+            "A82C"
         ],
         Syriac: [
             "0700",
@@ -135067,7 +135067,7 @@ module.exports = {
             "0867",
             "0868",
             "0869",
-            "086A",
+            "086A"
         ],
         Tagalog: [
             "1700",
@@ -135092,7 +135092,7 @@ module.exports = {
             "1713",
             "1714",
             "1715",
-            "171F",
+            "171F"
         ],
         Tagbanwa: [
             "1760",
@@ -135112,7 +135112,7 @@ module.exports = {
             "176F",
             "1770",
             "1772",
-            "1773",
+            "1773"
         ],
         Tai_Le: [
             "1950",
@@ -135149,7 +135149,7 @@ module.exports = {
             "1971",
             "1972",
             "1973",
-            "1974",
+            "1974"
         ],
         Tai_Tham: [
             "1A20",
@@ -135278,7 +135278,7 @@ module.exports = {
             "1AAA",
             "1AAB",
             "1AAC",
-            "1AAD",
+            "1AAD"
         ],
         Tai_Viet: [
             "AA80",
@@ -135352,7 +135352,7 @@ module.exports = {
             "AADC",
             "AADD",
             "AADE",
-            "AADF",
+            "AADF"
         ],
         Takri: [
             "11680",
@@ -135422,7 +135422,7 @@ module.exports = {
             "116C6",
             "116C7",
             "116C8",
-            "116C9",
+            "116C9"
         ],
         Tamil: [
             "0B82",
@@ -135547,7 +135547,7 @@ module.exports = {
             "11FEF",
             "11FF0",
             "11FF1",
-            "11FFF",
+            "11FFF"
         ],
         Tangsa: [
             "16A70",
@@ -135638,7 +135638,7 @@ module.exports = {
             "16AC6",
             "16AC7",
             "16AC8",
-            "16AC9",
+            "16AC9"
         ],
         Tangut: [
             "16FE0",
@@ -142554,7 +142554,7 @@ module.exports = {
             "18D05",
             "18D06",
             "18D07",
-            "18D08",
+            "18D08"
         ],
         Telugu: [
             "0C00",
@@ -142656,7 +142656,7 @@ module.exports = {
             "0C7C",
             "0C7D",
             "0C7E",
-            "0C7F",
+            "0C7F"
         ],
         Thaana: [
             "0780",
@@ -142708,7 +142708,7 @@ module.exports = {
             "07AE",
             "07AF",
             "07B0",
-            "07B1",
+            "07B1"
         ],
         Thai: [
             "0E01",
@@ -142796,7 +142796,7 @@ module.exports = {
             "0E58",
             "0E59",
             "0E5A",
-            "0E5B",
+            "0E5B"
         ],
         Tibetan: [
             "0F00",
@@ -143005,7 +143005,7 @@ module.exports = {
             "0FD3",
             "0FD4",
             "0FD9",
-            "0FDA",
+            "0FDA"
         ],
         Tifinagh: [
             "2D30",
@@ -143066,7 +143066,7 @@ module.exports = {
             "2D67",
             "2D6F",
             "2D70",
-            "2D7F",
+            "2D7F"
         ],
         Tirhuta: [
             "11480",
@@ -143150,7 +143150,7 @@ module.exports = {
             "114D6",
             "114D7",
             "114D8",
-            "114D9",
+            "114D9"
         ],
         Toto: [
             "1E290",
@@ -143183,7 +143183,7 @@ module.exports = {
             "1E2AB",
             "1E2AC",
             "1E2AD",
-            "1E2AE",
+            "1E2AE"
         ],
         Ugaritic: [
             "10380",
@@ -143216,7 +143216,7 @@ module.exports = {
             "1039B",
             "1039C",
             "1039D",
-            "1039F",
+            "1039F"
         ],
         Vai: [
             "A500",
@@ -143518,7 +143518,7 @@ module.exports = {
             "A628",
             "A629",
             "A62A",
-            "A62B",
+            "A62B"
         ],
         Vithkuqi: [
             "10570",
@@ -143590,7 +143590,7 @@ module.exports = {
             "105B8",
             "105B9",
             "105BB",
-            "105BC",
+            "105BC"
         ],
         Wancho: [
             "1E2C0",
@@ -143651,7 +143651,7 @@ module.exports = {
             "1E2F7",
             "1E2F8",
             "1E2F9",
-            "1E2FF",
+            "1E2FF"
         ],
         Warang_Citi: [
             "118A0",
@@ -143737,7 +143737,7 @@ module.exports = {
             "118F0",
             "118F1",
             "118F2",
-            "118FF",
+            "118FF"
         ],
         Yezidi: [
             "10E80",
@@ -143786,7 +143786,7 @@ module.exports = {
             "10EAC",
             "10EAD",
             "10EB0",
-            "10EB1",
+            "10EB1"
         ],
         Yi: [
             "A000",
@@ -145008,7 +145008,7 @@ module.exports = {
             "A4C3",
             "A4C4",
             "A4C5",
-            "A4C6",
+            "A4C6"
         ],
         Zanabazar_Square: [
             "11A00",
@@ -145082,7 +145082,7 @@ module.exports = {
             "11A44",
             "11A45",
             "11A46",
-            "11A47",
+            "11A47"
         ],
     },
 };

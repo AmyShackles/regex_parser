@@ -2,6 +2,7 @@
     "env": {
         "commonjs": true,
         "es2021": true,
+        "jest/globals": true,
         "node": true
     },
     "extends": [
@@ -11,6 +12,7 @@
     "parserOptions": {
         "ecmaVersion": "latest"
     },
+    "plugins": ["jest"],
     "rules": {
         "array-bracket-newline": [
             "error",
@@ -24,7 +26,7 @@
         ],
         "array-element-newline": [
             "error",
-            "never"
+            "consistent"
         ],
         "arrow-parens": [
             "error",
@@ -43,11 +45,7 @@
         ],
         "brace-style": [
             "error",
-            "stroustrup"
-        ],
-        "comma-dangle": [
-            "error",
-            "always"
+            "1tbs"
         ],
         "comma-spacing": [
             "error",
@@ -88,12 +86,6 @@
             {
                 "before": true,
                 "after": true
-            }
-        ],
-        "newline-per-chained-call": [
-            "error",
-            {
-                "ignoreChainWithDepth": 1
             }
         ],
         "no-else-return": "error",
