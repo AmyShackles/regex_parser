@@ -1,4 +1,4 @@
-# regex_parser
+# regex parser
 
 ## Vision
 The end goal for this project is the ability to create a VSCode extension that can scan JavaScript/TypeScript files, identify regular expressions being used within those files, and then display (on hover) a human-readable description of what that regular expression is matching.
