@@ -1,3 +1,7 @@
+const { getControlChar } = require("./utils/getControlChar.js");
+const { getUnicode } = require("./utils/getUnicode.js");
+const { handlePeriod } = require("./utils/handlePeriod.js");
+
 const last = (stack) => stack[stack.length - 1];
 
 const getPatternAndFlags = (regex) => {
@@ -27,6 +31,11 @@ function parse(regex) {
     */
     const backspaces = findInstancesInCharacterArray(backspaceRegex, re);
 
+    /* 
+        Searches the entire string for instances of a period in a character
+        set because a period in a character set does not need to be escaped
+        and is treated as a literal period
+    */
     const dots = findInstancesInCharacterArray(dotRegex, re);
 
     let i = 0;
@@ -34,30 +43,6 @@ function parse(regex) {
         const next = re[i];
 
         switch (next) {
-            case ".": {
-                if (dots.includes(next)) {
-                    last(stack).push({
-                        quantifier: "exactlyOne",
-                        regex: ".",
-                        type: "literal",
-                        value: ".",
-                    });
-                } else if (flags.includes("s")) {
-                    last(stack).push({
-                        quantifier: "exactlyOne",
-                        regex: ".",
-                        type: "dotAll",
-                    });
-                } else {
-                    last(stack).push({
-                        quantifier: "exactlyOne",
-                        regex: ".",
-                        type: "dot",
-                    });
-                }
-                i++;
-                continue;
-            }
             case "\\": {
                 if (i + 1 >= re.length) {
                     throw new Error(`Bad escape character at index ${i}`);
@@ -82,6 +67,7 @@ function parse(regex) {
                                 });
                             }
                         }
+                        i += 2;
                         break;
                     case "B":
                         {
@@ -92,6 +78,7 @@ function parse(regex) {
                                 value: "nonWordBoundary",
                             });
                         }
+                        i += 2;
                         break;
                     case "d":
                         last(stack).push({
@@ -100,6 +87,7 @@ function parse(regex) {
                             type: "characterClass",
                             value: "digit",
                         });
+                        i += 2;
                         break;
                         case "D":
                             last(stack).push({
@@ -108,6 +96,7 @@ function parse(regex) {
                                 type: "characterClass",
                                 value: "nonDigit",
                         });
+                        i += 2;
                         break;
                     case "w":
                         last(stack).push({
@@ -116,6 +105,7 @@ function parse(regex) {
                             type: "characterClass",
                             value: "word",
                         });
+                        i += 2;
                         break;
                     case "W":
                         last(stack).push({
@@ -124,6 +114,7 @@ function parse(regex) {
                             type: "characterClass",
                             value: "nonWord",
                         });
+                        i += 2;
                         break;
                     case "s":
                         last(stack).push({
@@ -132,6 +123,7 @@ function parse(regex) {
                             type: "characterClass",
                             value: "whiteSpace",
                         });
+                        i += 2;
                         break;
                     case "S":
                         last(stack).push({
@@ -140,6 +132,7 @@ function parse(regex) {
                             type: "characterClass",
                             value: "nonWhiteSpace",
                         });
+                        i += 2;
                         break;
                     case "t":
                         last(stack).push({
@@ -148,6 +141,7 @@ function parse(regex) {
                             type: "characterClass",
                             value: "horizontalTab",
                         });
+                        i += 2;
                         break;
                     case "r":
                         last(stack).push({
@@ -156,6 +150,7 @@ function parse(regex) {
                             type: "characterClass",
                             value: "carriageReturn",
                         });
+                        i += 2;
                         break;
                     case "n":
                         last(stack).push({
@@ -164,6 +159,7 @@ function parse(regex) {
                             type: "characterClass",
                             value: "linefeed",
                         });
+                        i += 2;
                         break;
                     case "v":
                         last(stack).push({
@@ -172,6 +168,7 @@ function parse(regex) {
                             type: "characterClass",
                             value: "verticalTab",
                         });
+                        i += 2;
                         break;
                     case "f":
                         last(stack).push({
@@ -180,6 +177,7 @@ function parse(regex) {
                             type: "characterClass",
                             value: "formFeed",
                         });
+                        i += 2;
                         break;
                     case "0":
                         last(stack).push({
@@ -188,275 +186,26 @@ function parse(regex) {
                             type: "characterClass",
                             value: "nulCharacter",
                         });
+                        i += 2;
                         break;
-                    case "c":
-                        {
-                            const controlChar = re[i + 2];
-                            switch (controlChar) {
-                                case "a":
-                                case "A":
-                                    last(stack).push({
-                                        quantifier: "exactlyOne",
-                                        regex: `\\c${controlChar}`,
-                                        type: "controlCharacter",
-                                        value: "startOfHeading",
-                                    });
-                                    break;
-                                case "b":
-                                case "B":
-                                    last(stack).push({
-                                        quantifier: "exactlyOne",
-                                        regex: `\\c${controlChar}`,
-                                        type: "controlCharacter",
-                                        value: "startOfText",
-                                    });
-                                    break;
-                                case "c":
-                                case "C":
-                                    last(stack).push({
-                                        quantifier: "exactlyOne",
-                                        regex: `\\c${controlChar}`,
-                                        type: "controlCharacter",
-                                        value: "endOfText",
-                                    });
-                                    break;
-                                case "d":
-                                case "D":
-                                    last(stack).push({
-                                        quantifier: "exactlyOne",
-                                        regex: `\\c${controlChar}`,
-                                        type: "controlCharacter",
-                                        value: "endOfTransmit",
-                                    });
-                                    break;
-                                case "e":
-                                case "E":
-                                    last(stack).push({
-                                        quantifier: "exactlyOne",
-                                        regex: `\\c${controlChar}`,
-                                        type: "controlCharacter",
-                                        value: "enquiry",
-                                    });
-                                    break;
-                                case "f":
-                                case "F":
-                                    last(stack).push({
-                                        quantifier: "exactlyOne",
-                                        regex: `\\c${controlChar}`,
-                                        type: "controlCharacter",
-                                        value: "acknowledge",
-                                    });
-                                    break;
-                                case "g":
-                                case "G":
-                                    last(stack).push({
-                                        quantifier: "exactlyOne",
-                                        regex: `\\c${controlChar}`,
-                                        type: "controlCharacter",
-                                        value: "bell",
-                                    });
-                                    continue;
-                                case "h":
-                                case "H":
-                                    last(stack).push({
-                                        quantifier: "exactlyOne",
-                                        regex: `\\c${controlChar}`,
-                                        type: "controlCharacter",
-                                        value: "backspace",
-                                    });
-                                    break;
-                                case "i":
-                                case "I":
-                                    last(stack).push({
-                                        quantifier: "exactlyOne",
-                                        regex: `\\c${controlChar}`,
-                                        type: "controlCharacter",
-                                        value: "horizontalTab",
-                                    });
-                                    break;
-                                case "j":
-                                case "J":
-                                    last(stack).push({
-                                        quantifier: "exactlyOne",
-                                        regex: `\\c${controlChar}`,
-                                        type: "controlCharacter",
-                                        value: "lineFeed",
-                                    });
-                                    break;
-                                case "k":
-                                case "K":
-                                    last(stack).push({
-                                        quantifier: "exactlyOne",
-                                        regex: `\\c${controlChar}`,
-                                        type: "controlCharacter",
-                                        value: "verticalTab",
-                                    });
-                                    break;
-                                case "l":
-                                case "L":
-                                    last(stack).push({
-                                        quantifier: "exactlyOne",
-                                        regex: `\\c${controlChar}`,
-                                        type: "controlCharacter",
-                                        value: "formFeed",
-                                    });
-                                    break;
-                                case "m":
-                                case "M":
-                                    last(stack).push({
-                                        quantifier: "exactlyOne",
-                                        regex: `\\c${controlChar}`,
-                                        type: "controlCharacter",
-                                        value: "carriageReturn",
-                                    });
-                                    break;
-                                case "n":
-                                case "N":
-                                    last(stack).push({
-                                        quantifier: "exactlyOne",
-                                        regex: `\\c${controlChar}`,
-                                        type: "controlCharacter",
-                                        value: "shiftOut",
-                                    });
-                                    break;
-                                case "o":
-                                case "O":
-                                    last(stack).push({
-                                        quantifier: "exactlyOne",
-                                        regex: `\\c${controlChar}`,
-                                        type: "controlCharacter",
-                                        value: "shiftIn",
-                                    });
-                                    break;
-                                case "p":
-                                case "P":
-                                    last(stack).push({
-                                        quantifier: "exactlyOne",
-                                        regex: `\\c${controlChar}`,
-                                        type: "controlCharacter",
-                                        value: "dataLineEscape",
-                                    });
-                                    break;
-                                case "q":
-                                case "Q":
-                                    last(stack).push({
-                                        quantifier: "exactlyOne",
-                                        regex: `\\c${controlChar}`,
-                                        type: "controlCharacter",
-                                        value: "deviceControl1",
-                                    });
-                                    break;
-                                case "r":
-                                case "R":
-                                    last(stack).push({
-                                        quantifier: "exactlyOne",
-                                        regex: `\\c${controlChar}`,
-                                        type: "controlCharacter",
-                                        value: "deviceControl2",
-                                    });
-                                    break;
-                                case "s":
-                                case "S":
-                                    last(stack).push({
-                                        quantifier: "exactlyOne",
-                                        regex: `\\c${controlChar}`,
-                                        type: "controlCharacter",
-                                        value: "deviceControl3",
-                                    });
-                                    break;
-                                case "t":
-                                case "T":
-                                    last(stack).push({
-                                        quantifier: "exactlyOne",
-                                        regex: `\\c${controlChar}`,
-                                        type: "controlCharacter",
-                                        value: "deviceControl4",
-                                    });
-                                    break;
-                                case "u":
-                                case "U":
-                                    last(stack).push({
-                                        quantifier: "exactlyOne",
-                                        regex: `\\c${controlChar}`,
-                                        type: "controlCharacter",
-                                        value: "negativeAcknowledge",
-                                    });
-                                    break;
-                                case "v":
-                                case "V":
-                                    last(stack).push({
-                                        quantifier: "exactlyOne",
-                                        regex: `\\c${controlChar}`,
-                                        type: "controlCharacter",
-                                        value: "synchronousIdle",
-                                    });
-                                    break;
-                                case "w":
-                                case "W":
-                                    last(stack).push({
-                                        quantifier: "exactlyOne",
-                                        regex: `\\c${controlChar}`,
-                                        type: "controlCharacter",
-                                        value: "endOfTransmitBlock",
-                                    });
-                                    break;
-                                case "x":
-                                case "X":
-                                    last(stack).push({
-                                        quantifier: "exactlyOne",
-                                        regex: `\\c${controlChar}`,
-                                        type: "controlCharacter",
-                                        value: "cancel",
-                                    });
-                                    break;
-                                case "y":
-                                case "Y":
-                                    last(stack).push({
-                                        quantifier: "exactlyOne",
-                                        regex: `\\c${controlChar}`,
-                                        type: "controlCharacter",
-                                        value: "endOfMedium",
-                                    });
-                                    break;
-                                case "z":
-                                case "Z":
-                                    last(stack).push({
-                                        quantifier: "exactlyOne",
-                                        regex: `\\c${controlChar}`,
-                                        type: "controlCharacter",
-                                        value: "substitute",
-                                    });
-                                    break;
-                                // Control characters only include
-                                // \ca - \cz (case insensitive)
-                                // So if the value after c is anything else,
-                                // Match literally
-                                default:
-                                    last(stack).push(
-                                        {
-                                            quantifier: "exactlyOne",
-                                            regex: "\\",
-                                            type: "element",
-                                            value: "\\",
-                                        },
-                                        {
-                                            quantifier: "exactlyOne",
-                                            regex: "c",
-                                            type: "element",
-                                            value: "c",
-                                        },
-                                        {
-                                            quantifier: "exactlyOne",
-                                            regex: controlChar,
-                                            type: "element",
-                                            value: controlChar,
-                                        }
-                                    );
-                                    break;
-                            }
+                    case "c": {
+                        const nextChar = re[i + 2];
+                        const controlChar = getControlChar(nextChar);
+                        if (Array.isArray(controlChar)) {
+                            last(stack).push(...controlChar);
+                        } else {
+                            last(stack).push(controlChar);
                         }
                         i += 3;
                         break;
+                    }
+                    case "u": {
+                        const currentIndex = i + 2;
+                        const { nextIndex, token } = getUnicode(re, currentIndex, flags.includes("u"));
+                        last(stack).push(token);
+                        i = nextIndex;
+                        break;
+                    }
                     // If there isn't a special rule about the escaped
                     // character, treat it like a literal
                     default:
@@ -466,9 +215,20 @@ function parse(regex) {
                             type: "element",
                             value: re[i + 1],
                         });
+                        i += 2;
                 }
-                i += 2;
                 break;
+            }
+            /* 
+                Placing the . case after the escape 
+                Means we don't have to test the case of
+                an escaped period
+            */
+            case ".": {
+                const period = handlePeriod(flags.includes("s"), i, dots);
+                last(stack).push(period);
+                i++;
+                continue;
             }
             case "(": {
                 const nextCharacter = re[i + 1];
@@ -558,17 +318,30 @@ function parse(regex) {
                 i++;
                 break;
             }
-            // TODO: Add logic for negative character sets
-            case "[":
-                stack.push([
-                    {
-                        quantifier: "exactlyOne",
-                        regex: "[",
-                        type: "characterSet",
-                    },
-                ]);
+            case "[": {
+                const nextCharacter = re[i + 1];
+                if (nextCharacter === "^") {
+                    stack.push([
+                        {
+                            quantifier: "exactlyOne",
+                            regex: "[^",
+                            type: "negativeCharacterSet",
+                        },
+                    ]);
+                    i+=2;
+                    break;
+                } else {
+                    stack.push([
+                        {
+                            quantifier: "exactlyOne",
+                            regex: "[",
+                            type: "characterSet",
+                        },
+                    ]);    
+                }
                 i++;
                 break;
+            }
             case "]": {
                 if (stack.length <= 1) {
                     throw new Error(`No set to close at index ${i}`);
@@ -639,6 +412,7 @@ function parse(regex) {
     }
     return stack[0];
 }
+
 
 module.exports = {
     backspaceRegex,
