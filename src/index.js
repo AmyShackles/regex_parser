@@ -1,6 +1,9 @@
 const { getControlChar } = require("./utils/getControlChar.js");
 const { getUnicode } = require("./utils/getUnicode.js");
 const { handlePeriod } = require("./utils/handlePeriod.js");
+const { handleKleenePlus } = require("./utils/handleKleenePlus.js");
+const { handleKleeneStar } = require("./utils/handleKleeneStar.js");
+const { handleOptional } = require("./utils/handleOptional.js");
 
 const last = (stack) => stack[stack.length - 1];
 
@@ -359,41 +362,25 @@ function parse(regex) {
                 i++;
                 break;
             }
-            // TODO: Add non-greedy logic
             case "*": {
                 const lastElement = last(last(stack));
-                if (!lastElement || lastElement.quantifier !== "exactlyOne") {
-                    throw new Error(
-                        "Quantifier must follow an unquantified element"
-                    );
-                }
-                lastElement.quantifier = "zeroOrMore";
-                lastElement.regex += "*";
-                i++;
+                const nextChar = re[i + 1];
+
+                i = handleKleeneStar(lastElement, nextChar, i);
                 break;
             }
             case "?": {
                 const lastElement = last(last(stack));
-                if (!lastElement || lastElement.quantifier !== "exactlyOne") {
-                    throw new Error(
-                        "Quantifier must follow an unquantified element"
-                    );
-                }
-                lastElement.quantifier = "zeroOrOne";
-                lastElement.regex += "?";
-                i++;
+                const nextChar = re[i + 1];
+
+                i = handleOptional(lastElement, nextChar, i);
                 break;
             }
             case "+": {
                 const lastElement = last(last(stack));
-                if (!lastElement || lastElement.quantifier !== "exactlyOne") {
-                    throw new Error(
-                        "Quantifier must follow an unquantified element"
-                    );
-                }
-                lastElement.quantifier = "oneOrMore";
-                lastElement.regex += "+";
-                i++;
+                const nextChar = re[i + 1];
+
+                i = handleKleenePlus(lastElement, nextChar, i);
                 break;
             }
             default:
@@ -412,7 +399,6 @@ function parse(regex) {
     }
     return stack[0];
 }
-
 
 module.exports = {
     backspaceRegex,
