@@ -1,9 +1,8 @@
-const { getControlChar } = require("./utils/getControlChar.js");
-const { getUnicode } = require("./utils/getUnicode.js");
 const { handlePeriod } = require("./utils/handlePeriod.js");
 const { handleKleenePlus } = require("./utils/handleKleenePlus.js");
 const { handleKleeneStar } = require("./utils/handleKleeneStar.js");
 const { handleOptional } = require("./utils/handleOptional.js");
+const { handleEscapes } = require("./utils/handleEscapes.js");
 
 const last = (stack) => stack[stack.length - 1];
 
@@ -22,7 +21,7 @@ const backspaceRegex = /(?<=[^\\]?\[[^\]]*\\)(b).*?\]/g;
 
 
 function parse(regex) {
-    const { pattern: re, flags } = getPatternAndFlags(regex);
+    const { pattern, flags } = getPatternAndFlags(regex);
     const stack = [[]];
 
     /*
@@ -32,194 +31,36 @@ function parse(regex) {
         Then returns an array of indexes where that b matches
         This is because a \b in a character class [] is a backspace
     */
-    const backspaces = findInstancesInCharacterArray(backspaceRegex, re);
+    const backspaces = findInstancesInCharacterArray(backspaceRegex, pattern);
 
     /* 
         Searches the entire string for instances of a period in a character
         set because a period in a character set does not need to be escaped
         and is treated as a literal period
     */
-    const dots = findInstancesInCharacterArray(dotRegex, re);
+    const dots = findInstancesInCharacterArray(dotRegex, pattern);
 
     let i = 0;
-    while (i < re.length) {
-        const next = re[i];
+    while (i < pattern.length) {
+        const next = pattern[i];
 
         switch (next) {
             case "\\": {
-                if (i + 1 >= re.length) {
+                if (i + 1 >= pattern.length) {
                     throw new Error(`Bad escape character at index ${i}`);
                 }
-                const escapedChar = re[i + 1];
-                switch (escapedChar) {
-                    case "b":
-                        {
-                            if (backspaces.includes(i + 1)) {
-                                last(stack).push({
-                                    quantifier: "exactlyOne",
-                                    regex: "[\\b]",
-                                    type: "controlCharacter",
-                                    value: "backspace",
-                                });
-                            } else {
-                                last(stack).push({
-                                    quantifier: "exactlyOne",
-                                    regex: "\\b",
-                                    type: "assertion",
-                                    value: "wordBoundary",
-                                });
-                            }
-                        }
-                        i += 2;
-                        break;
-                    case "B":
-                        {
-                            last(stack).push({
-                                quantifier: "exactlyOne",
-                                regex: "\\B",
-                                type: "assertion",
-                                value: "nonWordBoundary",
-                            });
-                        }
-                        i += 2;
-                        break;
-                    case "d":
-                        last(stack).push({
-                            quantifier: "exactlyOne",
-                            regex: "\\d",
-                            type: "characterClass",
-                            value: "digit",
-                        });
-                        i += 2;
-                        break;
-                        case "D":
-                            last(stack).push({
-                                quantifier: "exactlyOne",
-                                regex: "\\D",
-                                type: "characterClass",
-                                value: "nonDigit",
-                        });
-                        i += 2;
-                        break;
-                    case "w":
-                        last(stack).push({
-                            quantifier: "exactlyOne",
-                            regex: "\\w",
-                            type: "characterClass",
-                            value: "word",
-                        });
-                        i += 2;
-                        break;
-                    case "W":
-                        last(stack).push({
-                            quantifier: "exactlyOne",
-                            regex: "\\W",
-                            type: "characterClass",
-                            value: "nonWord",
-                        });
-                        i += 2;
-                        break;
-                    case "s":
-                        last(stack).push({
-                            quantifier: "exactlyOne",
-                            regex: "\\s",
-                            type: "characterClass",
-                            value: "whiteSpace",
-                        });
-                        i += 2;
-                        break;
-                    case "S":
-                        last(stack).push({
-                            quantifier: "exacltyOne",
-                            regex: "\\S",
-                            type: "characterClass",
-                            value: "nonWhiteSpace",
-                        });
-                        i += 2;
-                        break;
-                    case "t":
-                        last(stack).push({
-                            quantifier: "exacltyOne",
-                            regex: "\\t",
-                            type: "characterClass",
-                            value: "horizontalTab",
-                        });
-                        i += 2;
-                        break;
-                    case "r":
-                        last(stack).push({
-                            quantifier: "exacltyOne",
-                            regex: "\\r",
-                            type: "characterClass",
-                            value: "carriageReturn",
-                        });
-                        i += 2;
-                        break;
-                    case "n":
-                        last(stack).push({
-                            quantifier: "exacltyOne",
-                            regex: "\\n",
-                            type: "characterClass",
-                            value: "linefeed",
-                        });
-                        i += 2;
-                        break;
-                    case "v":
-                        last(stack).push({
-                            quantifier: "exacltyOne",
-                            regex: "\\v",
-                            type: "characterClass",
-                            value: "verticalTab",
-                        });
-                        i += 2;
-                        break;
-                    case "f":
-                        last(stack).push({
-                            quantifier: "exacltyOne",
-                            regex: "\\f",
-                            type: "characterClass",
-                            value: "formFeed",
-                        });
-                        i += 2;
-                        break;
-                    case "0":
-                        last(stack).push({
-                            quantifier: "exacltyOne",
-                            regex: "\\0",
-                            type: "characterClass",
-                            value: "nulCharacter",
-                        });
-                        i += 2;
-                        break;
-                    case "c": {
-                        const nextChar = re[i + 2];
-                        const controlChar = getControlChar(nextChar);
-                        if (Array.isArray(controlChar)) {
-                            last(stack).push(...controlChar);
-                        } else {
-                            last(stack).push(controlChar);
-                        }
-                        i += 3;
-                        break;
-                    }
-                    case "u": {
-                        const currentIndex = i + 2;
-                        const { nextIndex, token } = getUnicode(re, currentIndex, flags.includes("u"));
-                        last(stack).push(token);
-                        i = nextIndex;
-                        break;
-                    }
-                    // If there isn't a special rule about the escaped
-                    // character, treat it like a literal
-                    default:
-                        last(stack).push({
-                            quantifier: "exactlyOne",
-                            regex: `\\${re[i + 1]}`,
-                            type: "element",
-                            value: re[i + 1],
-                        });
-                        i += 2;
+                i++;
+                const currentChar = pattern[i];
+                const nextChar = pattern[i + 1];
+                const regex = pattern;
+                const unicodeMode = flags.includes("u");
+                const { index, token } = handleEscapes({backspaces, currentChar, index: i, nextChar, regex, unicodeMode});
+                if (Array.isArray(token)) {
+                    last(stack).push(...token);
+                } else {
+                    last(stack).push(token);
                 }
+                i = index;
                 break;
             }
             /* 
@@ -234,9 +75,9 @@ function parse(regex) {
                 continue;
             }
             case "(": {
-                const nextCharacter = re[i + 1];
+                const nextCharacter = pattern[i + 1];
                 if (nextCharacter === "?") {
-                    switch (re[i + 2]) {
+                    switch (pattern[i + 2]) {
                         case "=":
                             stack.push([
                                 {
@@ -268,7 +109,7 @@ function parse(regex) {
                             i += 3;
                             break;
                         case "<": {
-                            const nextVal = re[i + 3];
+                            const nextVal = pattern[i + 3];
                             if (nextVal === "=") {
                                 stack.push([
                                     {
@@ -322,7 +163,7 @@ function parse(regex) {
                 break;
             }
             case "[": {
-                const nextCharacter = re[i + 1];
+                const nextCharacter = pattern[i + 1];
                 if (nextCharacter === "^") {
                     stack.push([
                         {
@@ -364,21 +205,21 @@ function parse(regex) {
             }
             case "*": {
                 const lastElement = last(last(stack));
-                const nextChar = re[i + 1];
+                const nextChar = pattern[i + 1];
 
                 i = handleKleeneStar(lastElement, nextChar, i);
                 break;
             }
             case "?": {
                 const lastElement = last(last(stack));
-                const nextChar = re[i + 1];
+                const nextChar = pattern[i + 1];
 
                 i = handleOptional(lastElement, nextChar, i);
                 break;
             }
             case "+": {
                 const lastElement = last(last(stack));
-                const nextChar = re[i + 1];
+                const nextChar = pattern[i + 1];
 
                 i = handleKleenePlus(lastElement, nextChar, i);
                 break;
