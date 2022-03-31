@@ -1,4 +1,4 @@
-const { getUnicode, getCharacter } = require("../src/utils/getUnicode.js");
+const { getUnicode, getCharacter, getControlCharacter } = require("../src/utils/getUnicode.js");
 
 const unicodeChar = "Ӹ";
 const unicodeCodepoint = 1272;
@@ -30,5 +30,10 @@ describe("getUnicode", () => {
                 }
             });
         }); 
+    });
+});
+describe("getControlCharacter", () => {
+    test("should return the next index and token for control characters", () => {
+        expect(getControlCharacter(31)).toEqual("unitSeparator");
     });
 });

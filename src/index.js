@@ -8,7 +8,7 @@ const last = (stack) => stack[stack.length - 1];
 
 const getPatternAndFlags = (regex) => {
     const regexString = regex.toString();
-    const [{groups: { flags, pattern } }] = [...regexString.matchAll(/\/(?<pattern>.*)\/(?<flags>g?i?m?s?u?)/g)];
+    const [{groups: { flags, pattern } }] = [...regexString.matchAll(/\/(?<pattern>.*?)\/(?<flags>g?i?m?s?u?)/g)];
 
     return { flags, pattern };
 };
@@ -18,7 +18,6 @@ const findInstancesInCharacterArray = (regex, string) => {
 };
 const dotRegex = /(?<=[^\\]\[[^\]]*)\.(?=.*\])/g;
 const backspaceRegex = /(?<=[^\\]?\[[^\]]*\\)(b).*?\]/g;
-
 
 function parse(regex) {
     const { pattern, flags } = getPatternAndFlags(regex);
@@ -52,9 +51,8 @@ function parse(regex) {
                 i++;
                 const currentChar = pattern[i];
                 const nextChar = pattern[i + 1];
-                const regex = pattern;
                 const unicodeMode = flags.includes("u");
-                const { index, token } = handleEscapes({backspaces, currentChar, index: i, nextChar, regex, unicodeMode});
+                const { index, token } = handleEscapes({backspaces, currentChar, index: i, nextChar, pattern, unicodeMode});
                 if (Array.isArray(token)) {
                     last(stack).push(...token);
                 } else {
@@ -240,6 +238,7 @@ function parse(regex) {
     }
     return stack[0];
 }
+
 
 module.exports = {
     backspaceRegex,

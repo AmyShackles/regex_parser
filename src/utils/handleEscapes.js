@@ -1,8 +1,14 @@
 
 const { getControlChar } = require("./getControlChar");
 const { getUnicode } = require("./getUnicode");
+const { getOctal } = require("./getOctal");
+const { getParenStack} = require("./getParenStack");
 
-const handleEscapes = ({backspaces, currentChar, index, nextChar, regex, unicodeMode}) => {
+const handleEscapes = ({backspaces, currentChar, index, nextChar, pattern, unicodeMode}) => {
+    const captureRegex = /^(?<capture_group>(?:(?<named_capture>\(\?<.*?>.*?\))|(?<capture>\([^?][^:]?.*?\))))$/;
+    const captureList = getParenStack(pattern).filter((group) => captureRegex.test(group));
+    const numberOfBackreferences = captureList.length;
+
     switch (currentChar) {
         case "b": {
             if (backspaces.includes(index)) {
@@ -146,16 +152,6 @@ const handleEscapes = ({backspaces, currentChar, index, nextChar, regex, unicode
                     value: "formFeed",
                 }
             };
-        case "0":
-            return {
-                index: index + 1,
-                token: {
-                    quantifier: "exactlyOne",
-                    regex: "\\0",
-                    type: "characterClass",
-                    value: "nulCharacter",
-                }
-            };
         case "c": {
             return {
                 index: index + 2,
@@ -164,20 +160,35 @@ const handleEscapes = ({backspaces, currentChar, index, nextChar, regex, unicode
         }
         case "u": {
             const currentIndex = index + 1;
-            const { nextIndex, token } = getUnicode(regex, currentIndex, unicodeMode);
+            const { nextIndex, token } = getUnicode(pattern, currentIndex, unicodeMode);
             return {
                 index: nextIndex,
                 token
             };
         }
+        case "0":
+        case "1":
+        case "2":
+        case "3":
+        case "4":
+        case "5":
+        case "6":
+        case "7": {
+            const { nextIndex, token } = getOctal(captureList, numberOfBackreferences, pattern, index, unicodeMode);
+            return {
+                index: nextIndex,
+                token
+            };
+        }
+
         default:
             return {
                 index: index + 1,
                 token: {
                     quantifier: "exactlyOne",
-                    regex: `\\${regex[index]}`,
+                    regex: `\\${pattern[index]}`,
                     type: "element",
-                    value: regex[index],
+                    value: pattern[index],
                 }
             };
     }
