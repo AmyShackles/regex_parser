@@ -88,6 +88,7 @@
                 "after": true
             }
         ],
+        "no-control-regex": "off",
         "no-else-return": "error",
         "no-implicit-coercion": "error",
         "no-lonely-if": "error",
