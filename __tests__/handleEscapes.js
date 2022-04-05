@@ -511,7 +511,7 @@ describe("handleEscapes", () => {
             token: {
                 quantifier: "exactlyOne",
                 regex: "\\u{12352}",
-                type: "unicodeCharacter",
+                type: "unicodeExtended",
                 value: "𒍒",
             },
         });

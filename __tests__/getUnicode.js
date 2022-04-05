@@ -1,13 +1,7 @@
-const { getUnicode, getCharacter, getControlCharacter } = require("../src/utils/getUnicode.js");
+const { getUnicode, getControlCharacter } = require("../src/utils/getUnicode.js");
 
 const unicodeChar = "Ӹ";
-const unicodeCodepoint = 1272;
 
-describe("getCharacter", () => {
-    test("should return the right character given a codepoint", () => {
-        expect(getCharacter(unicodeCodepoint)).toEqual(unicodeChar);
-    });
-});
 describe("getUnicode", () => {
     describe("unicodeFlagSet", () => {
         test("should return the correct token if extended unicode passed in", () => {
@@ -16,7 +10,7 @@ describe("getUnicode", () => {
                 token: {
                     quantifier: "exactlyOne",
                     regex: "\\u{12352}",
-                    type: "unicodeCharacter",
+                    type: "unicodeExtended",
                     value: "𒍒",
                 }
             });
@@ -25,7 +19,7 @@ describe("getUnicode", () => {
                 token: {
                     quantifier: "exactlyOne",
                     regex: "\\u{04F8}",
-                    type: "unicodeCharacter",
+                    type: "unicodeExtended",
                     value: unicodeChar,
                 }
             });

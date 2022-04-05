@@ -1,72 +1,24 @@
+const { getUnicodeCharacter } = require("./getUnicodeCharacter");
+
 const getUnicode = (regexString, index, unicodeFlagSet) => {
-    let codepoint, hex, unicode;
+    let hex, nextIndex;
     // The \u{hhhh} format is only valid when unicodeFlag is set
     // Else, the 'u' is parsed as an escaped 'u' character
     if (unicodeFlagSet && regexString[index] === "{") {
         const closingBraceIndex = regexString.indexOf("}", index + 1);
         hex = regexString.slice(index + 1, closingBraceIndex);
-        if (!isNaN(`0x${hex}`)) {
-            codepoint = parseInt(hex, 16);
-            if (codepoint < 32) {
-                const { value } = getControlCharacter(
-                    codepoint
-                );
-                return {
-                    nextIndex,
-                    token: {
-                        quantifier: "exactlyOne",
-                        regex: `\\u{${number}}`,
-                        type: "controlCharacter",
-                        value,
-                    },
-                };
-            }
-            unicode = getCharacter(codepoint);
-            if (unicode)
-                return {
-                    nextIndex: closingBraceIndex + 1,
-                    token: {
-                        quantifier: "exactlyOne",
-                        regex: `\\u{${hex}}`,
-                        type: "unicodeCharacter",
-                        value: unicode,
-                    },
-                };
-        }
+        nextIndex = closingBraceIndex + 1;
+        return getUnicodeCharacter(hex, nextIndex, "unicodeExtended");
     } else if (!unicodeFlagSet && regexString[index] === "{") {
         throw new Error(
             "Invalid use of extended unicode outside of unicode mode"
         );
     }
-    const number = regexString.slice(index, index + 5);
-    const nextIndex = index + 5;
-
-    if (!isNaN(`0x${number}`)) {
-        codepoint = parseInt(number, 16);
-        if (codepoint < 32) {
-            const { value } = getControlCharacter(codepoint);
-            return {
-                nextIndex,
-                token: {
-                    quantifier: "exactlyOne",
-                    regex: `\\u${number}`,
-                    type: "controlCharacter",
-                    value,
-                },
-            };
-        }
-        unicode = getCharacter(codepoint);
-        if (unicode)
-            return {
-                nextIndex: (index += nextIndex),
-                token: {
-                    quantifier: "exactlyOne",
-                    regex: `\\u${number}`,
-                    type: "unicodeCharacter",
-                    value: unicode,
-                },
-            };
-    }
+    hex = regexString.slice(index, index + 5);
+    nextIndex = index + 5;
+    const unicodeCharacter = getUnicodeCharacter(hex, nextIndex, "unicode");
+    if (unicodeCharacter) 
+        return unicodeCharacter;
     return {
         nextIndex: ++index,
         token: {
@@ -78,13 +30,7 @@ const getUnicode = (regexString, index, unicodeFlagSet) => {
     };
 };
 
-const getCharacter = (codepoint) => {
-    try {
-        return String.fromCodePoint(codepoint);
-    } catch {
-        return "";
-    }
-};
+
 
 function getControlCharacter(codepoint) {
     switch (codepoint) {
@@ -157,4 +103,4 @@ function getControlCharacter(codepoint) {
     }
 }
 
-module.exports = { getCharacter, getControlCharacter, getUnicode };
+module.exports = { getControlCharacter, getUnicode };

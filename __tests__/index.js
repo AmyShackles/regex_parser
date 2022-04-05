@@ -149,7 +149,7 @@ describe("parse", () => {
             {
                 quantifier: "exactlyOne",
                 regex: "\\u{12532}",
-                type: "unicodeCharacter",
+                type: "unicodeExtended",
                 value: "𒔲",
             },
             {
