@@ -1,6 +1,7 @@
 
 const { getControlChar } = require("./getControlChar");
 const { getUnicode } = require("./getUnicode");
+const { getHexadecimal } = require("./getHexadecimal");
 const { getOctal } = require("./getOctal");
 const { getParenStack} = require("./getParenStack");
 
@@ -161,6 +162,14 @@ const handleEscapes = ({backspaces, currentChar, index, nextChar, pattern, unico
         case "u": {
             const currentIndex = index + 1;
             const { nextIndex, token } = getUnicode(pattern, currentIndex, unicodeMode);
+            return {
+                index: nextIndex,
+                token
+            };
+        }
+        case "x": {
+            const currentIndex = index + 1;
+            const { nextIndex, token } = getHexadecimal(pattern, currentIndex);
             return {
                 index: nextIndex,
                 token
