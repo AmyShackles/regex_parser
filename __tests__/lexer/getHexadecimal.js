@@ -1,4 +1,4 @@
-const { getHexadecimal } = require("../src/utils/getHexadecimal");
+const { getHexadecimal } = require("../../src/lexer/getHexadecimal");
 
 describe("getHexadecimal", () => {
     test("returns a literal if invalid", () => {

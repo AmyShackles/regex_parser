@@ -1,5 +1,5 @@
-const { handlePeriod } = require("../src/utils/handlePeriod.js");
-const { dotRegex, findInstancesInCharacterArray } = require("../src/index.js"); 
+const { handlePeriod } = require("../../src/lexer/handlePeriod.js");
+const { dotRegex, findInstancesInCharacterArray } = require("../../src/lexer/index.js"); 
 
 
 

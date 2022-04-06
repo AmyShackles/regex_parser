@@ -2,8 +2,8 @@ const {
     backspaceRegex,
     findInstancesInCharacterArray,
     getPatternAndFlags,
-} = require("../src/index");
-const { handleEscapes } = require("../src/utils/handleEscapes.js");
+} = require("../../src/lexer/index");
+const { handleEscapes } = require("../../src/lexer/handleEscapes.js");
 
 describe("handleEscapes", () => {
     it("should handle backspace", () => {

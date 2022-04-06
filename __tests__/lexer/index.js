@@ -3,8 +3,8 @@ const {
     dotRegex,
     findInstancesInCharacterArray,
     getPatternAndFlags,
-    parse,
-} = require("../src/index.js");
+    tokenize,
+} = require("../../src/lexer/index.js");
 
 const testRegex = /[a\bc](?<=a)\c23((a)\cA)+.*(?=5)[\b]/gs;
 const regexString = testRegex.toString();
@@ -35,12 +35,12 @@ describe("getPatternsAndFlags", () => {
         expect(getPatternAndFlags(testRegex).flags).toEqual("gs");
     });
 });
-describe("parse", () => {
+describe("tokenize", () => {
     test("should return an array", () => {
-        expect(Array.isArray(parse(testRegex))).toEqual(true);
+        expect(Array.isArray(tokenize(testRegex))).toEqual(true);
     });
     test("sanity check to ensure I'm not breaking things", () => {
-        expect(JSON.stringify(parse(reg), null, 2)).toEqual(JSON.stringify([
+        expect(JSON.stringify(tokenize(reg), null, 2)).toEqual(JSON.stringify([
             {
                 quantifier: "exactlyOne",
                 regex: "(?<=a)",

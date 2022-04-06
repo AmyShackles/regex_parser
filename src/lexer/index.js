@@ -1,8 +1,8 @@
-const { handlePeriod } = require("./utils/handlePeriod.js");
-const { handleKleenePlus } = require("./utils/handleKleenePlus.js");
-const { handleKleeneStar } = require("./utils/handleKleeneStar.js");
-const { handleOptional } = require("./utils/handleOptional.js");
-const { handleEscapes } = require("./utils/handleEscapes.js");
+const { handlePeriod } = require("./handlePeriod.js");
+const { handleKleenePlus } = require("./handleKleenePlus.js");
+const { handleKleeneStar } = require("./handleKleeneStar.js");
+const { handleOptional } = require("./handleOptional.js");
+const { handleEscapes } = require("./handleEscapes.js");
 
 const last = (stack) => stack[stack.length - 1];
 
@@ -19,7 +19,7 @@ const findInstancesInCharacterArray = (regex, string) => {
 const dotRegex = /(?<=[^\\]\[[^\]]*)\.(?=.*\])/g;
 const backspaceRegex = /(?<=[^\\]?\[[^\]]*\\)(b).*?\]/g;
 
-function parse(regex) {
+function tokenize(regex) {
     const { pattern, flags } = getPatternAndFlags(regex);
     const stack = [[]];
 
@@ -245,5 +245,5 @@ module.exports = {
     dotRegex,
     findInstancesInCharacterArray,
     getPatternAndFlags,
-    parse,
+    tokenize,
 };

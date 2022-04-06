@@ -1,4 +1,4 @@
-const { getUnicode, getControlCharacter } = require("../src/utils/getUnicode.js");
+const { getUnicode, getControlCharacter } = require("../../src/lexer/getUnicode.js");
 
 const unicodeChar = "Ӹ";
 

@@ -1,4 +1,4 @@
-const { handleOptional } = require("../src/utils/handleOptional.js");
+const { handleOptional } = require("../../src/lexer/handleOptional.js");
 
 describe("handleOptional", () => {
     test("should throw an error if lastElement has a quantity other than 'exactlyOne'", () => {

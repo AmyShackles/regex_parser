@@ -1,5 +1,5 @@
 /* eslint-disable */
-const { getCharacter, getRegexForUnicode, getUnicodeCharacter } = require("../src/utils/getUnicodeCharacter");
+const { getCharacter, getRegexForUnicode, getUnicodeCharacter } = require("../../src/lexer/getUnicodeCharacter");
 
 const unicodeChar = "Ӹ";
 const unicodeCodepoint = 1272;
