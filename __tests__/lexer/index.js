@@ -121,6 +121,7 @@ describe("tokenize", () => {
                 quantifier: "oneOrMore-lazy",
                 regex: ".+?",
                 type: "dotAll",
+                value: "character (including line breaks)"
             },
             {
                 quantifier: "exactlyOne",
