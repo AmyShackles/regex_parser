@@ -124,28 +124,16 @@ describe("tokenize", () => {
                 value: "character (including line breaks)"
             },
             {
-                quantifier: "exactlyOne",
+                quantifier: "exactly2",
                 regex: " ",
                 type: "literal",
                 value: " ",
             },
             {
                 quantifier: "exactlyOne",
-                regex: "{",
-                type: "literal",
-                value: "{",
-            },
-            {
-                quantifier: "exactlyOne",
-                regex: "2",
-                type: "literal",
-                value: "2",
-            },
-            {
-                quantifier: "exactlyOne",
-                regex: "}",
-                type: "literal",
-                value: "}",
+                regex: "{2}",
+                type: "range",
+                value: "exactly2",
             },
             {
                 quantifier: "exactlyOne",

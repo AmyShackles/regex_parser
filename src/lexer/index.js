@@ -3,6 +3,7 @@ const { handleKleenePlus } = require("./handleKleenePlus.js");
 const { handleKleeneStar } = require("./handleKleeneStar.js");
 const { handleOptional } = require("./handleOptional.js");
 const { handleEscapes } = require("./handleEscapes.js");
+const { handleRange } = require("./handleRange");
 
 const last = (stack) => stack[stack.length - 1];
 
@@ -158,6 +159,15 @@ function tokenize(regex) {
                     value: states,
                 });
                 i++;
+                break;
+            }
+            case "{": {
+                const closingBrace = pattern.indexOf("}", i + 1);
+                const betweenBraces = pattern.slice(i + 1, closingBrace);
+                const lastElement = last(last(stack));
+                const { index, token } = handleRange(lastElement, betweenBraces, i + 1);
+                last(stack).push(token);
+                i = index;
                 break;
             }
             case "[": {
