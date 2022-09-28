@@ -13,12 +13,14 @@ const handlePeriod = (dotAll, index, literalDots) => {
             quantifier: "exactlyOne",
             regex: ".",
             type: "dotAll",
+            value: "character (including line breaks)"
         };
     }
     return {
         quantifier: "exactlyOne",
         regex: ".",
         type: "dot",
+        value: "character (not including line breaks)"
     };
 };
 

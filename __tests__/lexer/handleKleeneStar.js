@@ -1,4 +1,4 @@
-const { handleKleeneStar } = require("../src/utils/handleKleeneStar.js");
+const { handleKleeneStar } = require("../../src/lexer/handleKleeneStar.js");
 
 describe("handleKleeneStar", () => {
     test("should throw an error if lastElement has a quantity other than 'exactlyOne'", () => {

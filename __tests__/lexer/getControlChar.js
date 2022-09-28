@@ -1,4 +1,4 @@
-const { getControlChar } = require("../src/utils/getControlChar.js");
+const { getControlChar } = require("../../src/lexer/getControlChar.js");
 
 describe("getControlChar", () => {
     test("should return the appropriate control character", () => {

@@ -1,48 +1,37 @@
-const { handlePeriod } = require("./utils/handlePeriod.js");
-const { handleKleenePlus } = require("./utils/handleKleenePlus.js");
-const { handleKleeneStar } = require("./utils/handleKleeneStar.js");
-const { handleOptional } = require("./utils/handleOptional.js");
-const { handleEscapes } = require("./utils/handleEscapes.js");
+const { handlePeriod } = require("./handlePeriod.js");
+const { handleKleenePlus } = require("./handleKleenePlus.js");
+const { handleKleeneStar } = require("./handleKleeneStar.js");
+const { handleOptional } = require("./handleOptional.js");
+const { handleEscapes } = require("./handleEscapes.js");
+const { handleRange } = require("./handleRange");
 
 const last = (stack) => stack[stack.length - 1];
 
 const getPatternAndFlags = (regex) => {
-    const regexString = regex.toString();
-    const [{groups: { flags, pattern } }] = [...regexString.matchAll(/\/(?<pattern>.*?)\/(?<flags>g?i?m?s?u?)/g)];
+    const { flags, source } = new RegExp(regex);
 
-    return { flags, pattern };
+    return { flags, pattern: source };
 };
 
 const findInstancesInCharacterArray = (regex, string) => {
     return [...string.matchAll(regex)].map((match) => match.index);
 };
-const dotRegex = /(?<=[^\\]\[[^\]]*)\.(?=.*\])/g;
-const backspaceRegex = /(?<=[^\\]?\[[^\]]*\\)(b).*?\]/g;
+const dotRegex = /(?<=[^\\]\[[^\]]*)\.(?=.*\])|(?:\\)\./g;
 
-function parse(regex) {
+function tokenize(regex) {
     const { pattern, flags } = getPatternAndFlags(regex);
-    const stack = [[]];
-
-    /*
-        Searches the entire string for instances of an escaped b
-        that occur after an opening bracked ([) and before a closed
-        bracket (]) and matches the b
-        Then returns an array of indexes where that b matches
-        This is because a \b in a character class [] is a backspace
-    */
-    const backspaces = findInstancesInCharacterArray(backspaceRegex, pattern);
-
+    const stack = [];
     /* 
         Searches the entire string for instances of a period in a character
         set because a period in a character set does not need to be escaped
         and is treated as a literal period
     */
     const dots = findInstancesInCharacterArray(dotRegex, pattern);
-
+    const characterSetStack = [];
+    const inCharacterSet = characterSetStack.length > 0;
     let i = 0;
     while (i < pattern.length) {
         const next = pattern[i];
-
         switch (next) {
             case "\\": {
                 if (i + 1 >= pattern.length) {
@@ -52,7 +41,14 @@ function parse(regex) {
                 const currentChar = pattern[i];
                 const nextChar = pattern[i + 1];
                 const unicodeMode = flags.includes("u");
-                const { index, token } = handleEscapes({backspaces, currentChar, index: i, nextChar, pattern, unicodeMode});
+                const { index, token } = handleEscapes({
+                    currentChar,
+                    inCharacterSet,
+                    index: i,
+                    nextChar,
+                    pattern,
+                    unicodeMode,
+                });
                 if (Array.isArray(token)) {
                     last(stack).push(...token);
                 } else {
@@ -76,7 +72,7 @@ function parse(regex) {
                 const nextCharacter = pattern[i + 1];
                 if (nextCharacter === "?") {
                     switch (pattern[i + 2]) {
-                        case "=":
+                        case "=": {
                             stack.push([
                                 {
                                     quantifier: "exactlyOne",
@@ -86,7 +82,8 @@ function parse(regex) {
                             ]);
                             i += 3;
                             break;
-                        case "!":
+                        }
+                        case "!": {
                             stack.push([
                                 {
                                     quantifier: "exactlyOne",
@@ -96,7 +93,8 @@ function parse(regex) {
                             ]);
                             i += 3;
                             break;
-                        case ":":
+                        }
+                        case ":": {
                             stack.push([
                                 {
                                     quantifier: "exactlyOne",
@@ -106,6 +104,7 @@ function parse(regex) {
                             ]);
                             i += 3;
                             break;
+                        }
                         case "<": {
                             const nextVal = pattern[i + 3];
                             if (nextVal === "=") {
@@ -144,23 +143,50 @@ function parse(regex) {
                 break;
             }
             case ")": {
-                if (stack.length <= 1) {
+                if (stack.length < 1) {
                     throw new Error(`No group to close at index ${i}`);
                 }
                 const states = stack.pop();
                 const label = states.shift();
-                last(stack).push({
-                    quantifier: label.quantifier,
-                    regex: `${label.regex}${states
-                        .map((s) => s.regex)
-                        .join("")})`,
-                    type: label.type,
-                    value: states,
-                });
+                if (stack.length === 0) {
+                    stack.push([
+                        {
+                            quantifier: label.quantifier,
+                            regex: `${label.regex}${states
+                                .map((s) => s.regex)
+                                .join("")})`,
+                            type: label.type,
+                            value: states,
+                        },
+                    ]);
+                } else {
+                    last(stack).push({
+                        quantifier: label.quantifier,
+                        regex: `${label.regex}${states
+                            .map((s) => s.regex)
+                            .join("")})`,
+                        type: label.type,
+                        value: states,
+                    });
+                }
                 i++;
                 break;
             }
+            case "{": {
+                const closingBrace = pattern.indexOf("}", i + 1);
+                const betweenBraces = pattern.slice(i + 1, closingBrace);
+                const lastElement = last(last(stack));
+                const { index, token } = handleRange(
+                    lastElement,
+                    betweenBraces,
+                    i + 1
+                );
+                last(stack).push(token);
+                i = index;
+                break;
+            }
             case "[": {
+                characterSetStack.push(i);
                 const nextCharacter = pattern[i + 1];
                 if (nextCharacter === "^") {
                     stack.push([
@@ -170,7 +196,7 @@ function parse(regex) {
                             type: "negativeCharacterSet",
                         },
                     ]);
-                    i+=2;
+                    i += 2;
                     break;
                 } else {
                     stack.push([
@@ -179,50 +205,113 @@ function parse(regex) {
                             regex: "[",
                             type: "characterSet",
                         },
-                    ]);    
+                    ]);
                 }
                 i++;
                 break;
             }
             case "]": {
-                if (stack.length <= 1) {
+                characterSetStack.pop();
+                if (stack.length < 1) {
                     throw new Error(`No set to close at index ${i}`);
                 }
                 const states = stack.pop();
                 const label = states.shift();
-                last(stack).push({
-                    quantifier: label.quantifier,
-                    regex: `${label.regex}${states
-                        .map((s) => s.regex)
-                        .join("")}]`,
-                    type: label.type,
-                    value: states,
-                });
+                if (stack.length === 0) {
+                    stack.push([
+                        {
+                            quantifier: label.quantifier,
+                            regex: `${label.regex}${states
+                                .map((s) => s.regex)
+                                .join("")}]`,
+                            type: label.type,
+                            value: states,
+                        },
+                    ]);
+                } else {
+                    last(stack).push({
+                        quantifier: label.quantifier,
+                        regex: `${label.regex}${states
+                            .map((s) => s.regex)
+                            .join("")}]`,
+                        type: label.type,
+                        value: states,
+                    });
+                }
                 i++;
                 break;
             }
             case "*": {
-                const lastElement = last(last(stack));
-                const nextChar = pattern[i + 1];
+                if (characterSetStack.length > 0) {
+                    last(stack).push({
+                        quantifier: "exactlyOne",
+                        regex: "*",
+                        type: "literal",
+                        value: "*",
+                    });
+                    i++;
+                } else {
+                    const lastElement = last(last(stack));
+                    const nextChar = pattern[i + 1];
 
-                i = handleKleeneStar(lastElement, nextChar, i);
+                    i = handleKleeneStar(lastElement, nextChar, i);
+                }
+                break;
+            }
+            case "/": {
+                if (characterSetStack.length > 0) {
+                    last(stack).push({
+                        quantifier: "exactlyOne",
+                        regex: "/",
+                        type: "literal",
+                        value: "/",
+                    });
+                } else {
+                    last(stack).push({
+                        quantifier: "exactlyOne",
+                        regex: next,
+                        type: "literal",
+                        value: next,
+                    });
+                }
+                i++;
                 break;
             }
             case "?": {
-                const lastElement = last(last(stack));
-                const nextChar = pattern[i + 1];
+                if (characterSetStack.length > 0) {
+                    last(stack).push({
+                        quantifier: "exactlyOne",
+                        regex: "?",
+                        type: "literal",
+                        value: "?",
+                    });
+                    i++;
+                } else {
+                    const lastElement = last(last(stack));
+                    const nextChar = pattern[i + 1];
 
-                i = handleOptional(lastElement, nextChar, i);
+                    i = handleOptional(lastElement, nextChar, i);
+                }
                 break;
             }
             case "+": {
-                const lastElement = last(last(stack));
-                const nextChar = pattern[i + 1];
+                if (characterSetStack.length > 0) {
+                    last(stack).push({
+                        quantifier: "exactlyOne",
+                        regex: "+",
+                        type: "literal",
+                        value: "+",
+                    });
+                    i++;
+                } else {
+                    const lastElement = last(last(stack));
+                    const nextChar = pattern[i + 1];
 
-                i = handleKleenePlus(lastElement, nextChar, i);
+                    i = handleKleenePlus(lastElement, nextChar, i);
+                }
                 break;
             }
-            default:
+            default: {
                 last(stack).push({
                     quantifier: "exactlyOne",
                     regex: next,
@@ -231,6 +320,7 @@ function parse(regex) {
                 });
                 i++;
                 break;
+            }
         }
     }
     if (stack.length !== 1) {
@@ -239,11 +329,9 @@ function parse(regex) {
     return stack[0];
 }
 
-
 module.exports = {
-    backspaceRegex,
     dotRegex,
     findInstancesInCharacterArray,
     getPatternAndFlags,
-    parse,
+    tokenize,
 };

@@ -1,6 +1,6 @@
-const { getOctal } = require("../src/utils/getOctal.js");
-const { getParenStack} = require("../src/utils/getParenStack");
-const { getPatternAndFlags } = require("../src/index.js");
+const { getOctal } = require("../../src/lexer/getOctal.js");
+const { getParenStack} = require("../../src/lexer/getParenStack");
+const { getPatternAndFlags } = require("../../src/lexer/index.js");
 
 describe("getOctal", () => {
     it("should handle nul characters", () => {

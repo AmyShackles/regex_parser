@@ -1,4 +1,5 @@
-const { getCharacter, getControlCharacter } = require("./getUnicode.js");
+const { getControlCharacter } = require("./getUnicode.js");
+const { getCharacter } = require("./getUnicodeCharacter");
 
 const getOctal = (
     captureList,

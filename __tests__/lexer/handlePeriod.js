@@ -1,5 +1,5 @@
-const { handlePeriod } = require("../src/utils/handlePeriod.js");
-const { dotRegex, findInstancesInCharacterArray } = require("../src/index.js"); 
+const { handlePeriod } = require("../../src/lexer/handlePeriod.js");
+const { dotRegex, findInstancesInCharacterArray } = require("../../src/lexer/index.js"); 
 
 
 
@@ -23,6 +23,7 @@ describe("handlePeriod", () => {
             quantifier: "exactlyOne",
             regex: ".",
             type: "dot",
+            value: "character (not including line breaks)"
         });
     });
     test("should return a dotAll if s flag is true", () => {
@@ -33,6 +34,7 @@ describe("handlePeriod", () => {
             quantifier: "exactlyOne",
             regex: ".",
             type: "dotAll",
+            value: "character (including line breaks)"
         });
     });
 });
