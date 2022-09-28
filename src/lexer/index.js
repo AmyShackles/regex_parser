@@ -4,7 +4,6 @@ const { handleKleeneStar } = require("./handleKleeneStar.js");
 const { handleOptional } = require("./handleOptional.js");
 const { handleEscapes } = require("./handleEscapes.js");
 const { handleRange } = require("./handleRange");
-// const { parser } = require("../parser");
 
 const last = (stack) => stack[stack.length - 1];
 

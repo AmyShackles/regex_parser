@@ -57,19 +57,4 @@ const handleRange = (lastElement, betweenBraces, index) => {
     }
 };
 
-/*
-function parseRange(min, max) {
-
-    if (isNumeric(min) && isNumeric(max)) {
-        return `${min} to ${max}`
-    } else if (isNumeric(min) && max === '') {
-        return `at least ${min}`
-    } else if (isNumeric(min) && max === undefined) {
-        return `exactly ${min}`
-    } else {
-        throw new Error("Invalid range");
-    }
-}
-*/
-
 module.exports = {handleRange};
