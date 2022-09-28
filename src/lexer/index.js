@@ -1,9 +1,7 @@
 const { handlePeriod } = require("./handlePeriod.js");
-const { handleKleenePlus } = require("./handleKleenePlus.js");
-const { handleKleeneStar } = require("./handleKleeneStar.js");
-const { handleOptional } = require("./handleOptional.js");
 const { handleEscapes } = require("./handleEscapes.js");
 const { handleRange } = require("./handleRange");
+const { handleQuantifiers } = require("./handleQuantifiers");
 
 const last = (stack) => stack[stack.length - 1];
 
@@ -253,8 +251,7 @@ function tokenize(regex) {
                 } else {
                     const lastElement = last(last(stack));
                     const nextChar = pattern[i + 1];
-
-                    i = handleKleeneStar(lastElement, nextChar, i);
+                    i = handleQuantifiers("*", lastElement, nextChar, i);
                 }
                 break;
             }
@@ -289,8 +286,7 @@ function tokenize(regex) {
                 } else {
                     const lastElement = last(last(stack));
                     const nextChar = pattern[i + 1];
-
-                    i = handleOptional(lastElement, nextChar, i);
+                    i = handleQuantifiers("?", lastElement, nextChar, i);
                 }
                 break;
             }
@@ -306,8 +302,7 @@ function tokenize(regex) {
                 } else {
                     const lastElement = last(last(stack));
                     const nextChar = pattern[i + 1];
-
-                    i = handleKleenePlus(lastElement, nextChar, i);
+                    i = handleQuantifiers("+", lastElement, nextChar, i);
                 }
                 break;
             }
