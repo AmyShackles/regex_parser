@@ -1,18 +1,25 @@
-
 const { getControlChar } = require("./getControlChar");
 const { getUnicode } = require("./getUnicode");
 const { getHexadecimal } = require("./getHexadecimal");
 const { getOctal } = require("./getOctal");
-const { getParenStack} = require("./getParenStack");
+const { getParenStack } = require("./getParenStack");
 
-const handleEscapes = ({backspaces, currentChar, index, nextChar, pattern, unicodeMode}) => {
+const handleEscapes = ({
+    currentChar,
+    index,
+    nextChar,
+    pattern,
+    unicodeMode,
+    inCharacterSet,
+}) => {
     const captureRegex = /^(?<capture_group>(?:(?<named_capture>\(\?<.*?>.*?\))|(?<capture>\([^?][^:]?.*?\))))$/;
-    const captureList = getParenStack(pattern).filter((group) => captureRegex.test(group));
+    const captureList = getParenStack(pattern).filter((group) => captureRegex.test(group)
+    );
     const numberOfBackreferences = captureList.length;
 
     switch (currentChar) {
         case "b": {
-            if (backspaces.includes(index)) {
+            if (inCharacterSet) {
                 return {
                     index: index + 1,
                     token: {
@@ -20,9 +27,9 @@ const handleEscapes = ({backspaces, currentChar, index, nextChar, pattern, unico
                         regex: "[\\b]",
                         type: "controlCharacter",
                         value: "backspace",
-                    }
+                    },
                 };
-            } 
+            }
             return {
                 index: index + 1,
                 token: {
@@ -30,10 +37,21 @@ const handleEscapes = ({backspaces, currentChar, index, nextChar, pattern, unico
                     regex: "\\b",
                     type: "assertion",
                     value: "wordBoundary",
-                }
+                },
             };
         }
-        case "B": 
+        case "B":
+            if (inCharacterSet) {
+                return {
+                    index: index + 1,
+                    token: {
+                        quantifier: "exactlyOne",
+                        regex: "\\B",
+                        type: "literal",
+                        value: "B",
+                    },
+                };
+            }
             return {
                 index: index + 1,
                 token: {
@@ -41,7 +59,7 @@ const handleEscapes = ({backspaces, currentChar, index, nextChar, pattern, unico
                     regex: "\\B",
                     type: "assertion",
                     value: "nonWordBoundary",
-                }
+                },
             };
         case "d":
             return {
@@ -51,7 +69,7 @@ const handleEscapes = ({backspaces, currentChar, index, nextChar, pattern, unico
                     regex: "\\d",
                     type: "characterClass",
                     value: "digit",
-                }
+                },
             };
         case "D":
             return {
@@ -61,7 +79,7 @@ const handleEscapes = ({backspaces, currentChar, index, nextChar, pattern, unico
                     regex: "\\D",
                     type: "characterClass",
                     value: "nonDigit",
-                }
+                },
             };
         case "w":
             return {
@@ -71,7 +89,7 @@ const handleEscapes = ({backspaces, currentChar, index, nextChar, pattern, unico
                     regex: "\\w",
                     type: "characterClass",
                     value: "word",
-                }
+                },
             };
         case "W":
             return {
@@ -81,7 +99,7 @@ const handleEscapes = ({backspaces, currentChar, index, nextChar, pattern, unico
                     regex: "\\W",
                     type: "characterClass",
                     value: "nonWord",
-                }
+                },
             };
         case "s":
             return {
@@ -91,7 +109,7 @@ const handleEscapes = ({backspaces, currentChar, index, nextChar, pattern, unico
                     regex: "\\s",
                     type: "characterClass",
                     value: "whiteSpace",
-                }
+                },
             };
         case "S":
             return {
@@ -101,7 +119,7 @@ const handleEscapes = ({backspaces, currentChar, index, nextChar, pattern, unico
                     regex: "\\S",
                     type: "characterClass",
                     value: "nonWhiteSpace",
-                }
+                },
             };
         case "t":
             return {
@@ -111,7 +129,7 @@ const handleEscapes = ({backspaces, currentChar, index, nextChar, pattern, unico
                     regex: "\\t",
                     type: "characterClass",
                     value: "horizontalTab",
-                }
+                },
             };
         case "r":
             return {
@@ -121,7 +139,7 @@ const handleEscapes = ({backspaces, currentChar, index, nextChar, pattern, unico
                     regex: "\\r",
                     type: "characterClass",
                     value: "carriageReturn",
-                }
+                },
             };
         case "n":
             return {
@@ -131,7 +149,7 @@ const handleEscapes = ({backspaces, currentChar, index, nextChar, pattern, unico
                     regex: "\\n",
                     type: "characterClass",
                     value: "linefeed",
-                }
+                },
             };
         case "v":
             return {
@@ -141,7 +159,7 @@ const handleEscapes = ({backspaces, currentChar, index, nextChar, pattern, unico
                     regex: "\\v",
                     type: "characterClass",
                     value: "verticalTab",
-                }
+                },
             };
         case "f":
             return {
@@ -151,7 +169,7 @@ const handleEscapes = ({backspaces, currentChar, index, nextChar, pattern, unico
                     regex: "\\f",
                     type: "characterClass",
                     value: "formFeed",
-                }
+                },
             };
         case "c": {
             return {
@@ -161,10 +179,14 @@ const handleEscapes = ({backspaces, currentChar, index, nextChar, pattern, unico
         }
         case "u": {
             const currentIndex = index + 1;
-            const { nextIndex, token } = getUnicode(pattern, currentIndex, unicodeMode);
+            const { nextIndex, token } = getUnicode(
+                pattern,
+                currentIndex,
+                unicodeMode
+            );
             return {
                 index: nextIndex,
-                token
+                token,
             };
         }
         case "x": {
@@ -172,7 +194,7 @@ const handleEscapes = ({backspaces, currentChar, index, nextChar, pattern, unico
             const { nextIndex, token } = getHexadecimal(pattern, currentIndex);
             return {
                 index: nextIndex,
-                token
+                token,
             };
         }
         case "0":
@@ -183,10 +205,17 @@ const handleEscapes = ({backspaces, currentChar, index, nextChar, pattern, unico
         case "5":
         case "6":
         case "7": {
-            const { nextIndex, token } = getOctal(captureList, numberOfBackreferences, pattern, index, unicodeMode);
+            const { nextIndex, token } = getOctal(
+                captureList,
+                numberOfBackreferences,
+                pattern,
+                index,
+                unicodeMode,
+                inCharacterSet
+            );
             return {
                 index: nextIndex,
-                token
+                token,
             };
         }
 
@@ -198,7 +227,7 @@ const handleEscapes = ({backspaces, currentChar, index, nextChar, pattern, unico
                     regex: `\\${pattern[index]}`,
                     type: "element",
                     value: pattern[index],
-                }
+                },
             };
     }
 };

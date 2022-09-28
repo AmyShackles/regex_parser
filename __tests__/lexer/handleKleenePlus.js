@@ -6,13 +6,21 @@ describe("handleKleenePlus", () => {
             quantifier: "zeroOrMore",
             regex: "i*",
             type: "literal",
-            value: "i"
+            value: "i",
         };
         const nextChar = ".";
-        function testError () {
+        function testError() {
             handleKleenePlus(lastElement, nextChar, 0);
         }
-        expect(testError).toThrowError(new Error("Quantifier must follow an unquantified element"));
+        expect(testError).toThrowError(
+            new Error(
+                `Quantifier must follow an unquantified element, but last element was ${JSON.stringify(
+                    lastElement,
+                    null,
+                    2
+                )} at index 0\n`
+            )
+        );
         expect(lastElement.quantifier).toEqual("zeroOrMore");
         expect(lastElement.regex).toEqual("i*");
     });
@@ -21,7 +29,7 @@ describe("handleKleenePlus", () => {
             quantifier: "exactlyOne",
             regex: "i",
             type: "literal",
-            value: "i"
+            value: "i",
         };
         const nextChar = ".";
         expect(handleKleenePlus(lastElement, nextChar, 0)).toEqual(1);
@@ -33,7 +41,7 @@ describe("handleKleenePlus", () => {
             quantifier: "exactlyOne",
             regex: "i",
             type: "literal",
-            value: "i"
+            value: "i",
         };
         const nextChar = "?";
         expect(handleKleenePlus(lastElement, nextChar, 0)).toEqual(2);

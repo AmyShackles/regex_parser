@@ -4,10 +4,12 @@ const getHexadecimal = (pattern, index) => {
     if (pattern.length > index + 2) {
         const hex = pattern.slice(index, index + 2);
         const nextIndex = index + 2;
-        const unicodeCharacter = getUnicodeCharacter(hex, nextIndex, "hexadecimal");
-        console.log({unicodeCharacter});
-        if (unicodeCharacter) 
-            return unicodeCharacter;
+        const unicodeCharacter = getUnicodeCharacter(
+            hex,
+            nextIndex,
+            "hexadecimal"
+        );
+        if (unicodeCharacter) return unicodeCharacter;
     }
     return {
         nextIndex: ++index,
@@ -15,8 +17,8 @@ const getHexadecimal = (pattern, index) => {
             quantifier: "exactlyOne",
             regex: "\\x",
             type: "literal",
-            value: "x"
-        }
+            value: "x",
+        },
     };
 };
 

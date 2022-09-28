@@ -20,3 +20,12 @@ Steps:
 - [ ] Add testing for work already done
 - [ ] Once there is 100% code coverage, add a rule to enforce it
 - [ ] Continue working on building out the parser
+
+
+## NOTE TO SELF:
+Find the maximum number of characters in a regex per chunk (indented line)
+Pad each line in that chunk to be equal to the max + tab
+Should result in:
+//
+regex                   something something
+regexSomethingOrOther   something something
