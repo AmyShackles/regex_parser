@@ -23,37 +23,19 @@ const handleRange = (lastElement, betweenBraces, index) => {
         };
     } else if (isNumeric(min) && isNumeric(max)) {
         lastElement.quantifier = `${min}to${max}`;
-        return {
-            index: index + betweenBraces.length + 1,
-            token: {
-                quantifier: "exactlyOne",
-                regex: `{${betweenBraces}}`,
-                type: "range",
-                value: `${min}to${max}`
-            }
-        };
+        lastElement.regex += `{${betweenBraces}}`;
+        lastElement.value = `"${lastElement.value}" repeated at least ${min} times and no more than ${max} times`;
+        return {index: index + betweenBraces.length + 1, };
     } else if (isNumeric(min) && max === "") {
         lastElement.quantifier = `atLeast${min}`;
-        return {
-            index: index + betweenBraces.length + 1,
-            token: {
-                quantifier: "exactlyOne",
-                regex: `{${betweenBraces}}`,
-                type: "range",
-                value: `atLeast${min}`
-            }
-        };
+        lastElement.regex += `{${betweenBraces}}`;
+        lastElement.value = `"${lastElement.value}" repeated at least ${min} times`;
+        return {index: index + betweenBraces.length + 1, };
     } else if (isNumeric(min) && max === undefined) {
         lastElement.quantifier = `exactly${min}`;
-        return {
-            index: index + betweenBraces.length + 1,
-            token: {
-                quantifier: "exactlyOne",
-                regex: `{${betweenBraces}}`,
-                type: "range",
-                value: `exactly${min}`
-            }
-        };
+        lastElement.regex += `{${betweenBraces}}`;
+        lastElement.value = `"${lastElement.value.repeat(min)}"`;
+        return {index: index + betweenBraces.length + 1, };
     }
 };
 

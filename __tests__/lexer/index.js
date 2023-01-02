@@ -9,7 +9,7 @@ const testRegex = /[a\bc](?<=a)\c23((a)\cA)+.*(?=5)[\b]/gs;
 const regexString = testRegex.toString();
 
 // /* eslint-disable */
-const reg = /(?<=a)[123][^abc][.].+? {2}\u{12532}\cA (?=5)/gsu;
+const reg = /(?<=a)[123][^abc][.].+? {2}\u{12532}\cA {3,}(?=5)/gsu;
 
 describe("findInstancesInCharacterArray", () => {
     test("should be able to find all instances of . in character sets", () => {
@@ -121,15 +121,9 @@ describe("tokenize", () => {
                     },
                     {
                         quantifier: "exactly2",
-                        regex: " ",
+                        regex: " {2}",
                         type: "literal",
-                        value: " ",
-                    },
-                    {
-                        quantifier: "exactlyOne",
-                        regex: "{2}",
-                        type: "range",
-                        value: "exactly2",
+                        value: "\"  \"",
                     },
                     {
                         quantifier: "exactlyOne",
@@ -144,10 +138,10 @@ describe("tokenize", () => {
                         value: "startOfHeading",
                     },
                     {
-                        quantifier: "exactlyOne",
-                        regex: " ",
+                        quantifier: "atLeast3",
+                        regex: " {3,}",
                         type: "literal",
-                        value: " ",
+                        value: "\" \" repeated at least 3 times",
                     },
                     {
                         quantifier: "exactlyOne",
