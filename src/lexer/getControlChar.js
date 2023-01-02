@@ -211,28 +211,28 @@ const getControlChar = (controlChar) => {
         // Control characters only include
         // \ca - \cz (case insensitive)
         // So if the value after c is anything else,
-        // Match literally
+        // Match a backslash and c literally
         default: {
             return (
                 [
                     {
                         quantifier: "exactlyOne",
                         regex: "\\",
-                        type: "element",
+                        type: "literal",
+                        value: "\\",
+                    },
+                    {
+                        quantifier: "exactlyOne",
+                        regex: "\\",
+                        type: "literal",
                         value: "\\",
                     },
                     {
                         quantifier: "exactlyOne",
                         regex: "c",
-                        type: "element",
+                        type: "literal",
                         value: "c",
                     },
-                    {
-                        quantifier: "exactlyOne",
-                        regex: controlChar,
-                        type: "element",
-                        value: controlChar,
-                    }
                 ]
             );
         }

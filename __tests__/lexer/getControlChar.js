@@ -321,20 +321,20 @@ describe("getControlChar", () => {
                 {
                     quantifier: "exactlyOne",
                     regex: "\\",
-                    type: "element",
+                    type: "literal",
+                    value: "\\",
+                },
+                {
+                    quantifier: "exactlyOne",
+                    regex: "\\",
+                    type: "literal",
                     value: "\\",
                 },
                 {
                     quantifier: "exactlyOne",
                     regex: "c",
-                    type: "element",
+                    type: "literal",
                     value: "c",
-                },
-                {
-                    quantifier: "exactlyOne",
-                    regex: "7",
-                    type: "element",
-                    value: "7",
                 }
             ]
         );

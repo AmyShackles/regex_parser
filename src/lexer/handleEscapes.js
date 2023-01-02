@@ -172,6 +172,12 @@ const handleEscapes = ({
                 },
             };
         case "c": {
+            if (Array.isArray(getControlChar(nextChar))) {
+                return {
+                    index: index + 1,
+                    token: getControlChar(nextChar),
+                };
+            }
             return {
                 index: index + 2,
                 token: getControlChar(nextChar),
