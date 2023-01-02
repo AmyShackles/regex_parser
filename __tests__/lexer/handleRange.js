@@ -10,14 +10,7 @@ describe("handleRange", () => {
         };
         const betweenBraces = "3,";
         const index = 2;
-        const expectedIndex = index + betweenBraces.length + 1;
-        const expectedToken = {
-            quantifier: "exactlyOne",
-            regex: `{${betweenBraces}}`,
-            type: "range",
-            value: "atLeast3"
-        };
-        expect(handleRange(lastElement, betweenBraces, index)).toEqual({index: expectedIndex, token: expectedToken});
+        handleRange(lastElement, betweenBraces, index);
         expect(lastElement.quantifier).toEqual("atLeast3");
     });
 });

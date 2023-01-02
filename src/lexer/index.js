@@ -174,13 +174,15 @@ function tokenize(regex) {
                 const closingBrace = pattern.indexOf("}", i + 1);
                 const betweenBraces = pattern.slice(i + 1, closingBrace);
                 const lastElement = last(last(stack));
-                const { index, token } = handleRange(
+                const range = handleRange(
                     lastElement,
                     betweenBraces,
                     i + 1
                 );
-                last(stack).push(token);
-                i = index;
+                if (range.token) {
+                    last(stack).push(range.token);
+                }
+                i = range.index;
                 break;
             }
             case "[": {
