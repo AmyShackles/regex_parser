@@ -6,7 +6,8 @@ const getOctal = (
     numberOfBackreferences,
     regex,
     index,
-    unicodeMode
+    unicodeMode,
+    inCharacterSet
 ) => {
     const regexString = regex.slice(index);
     const number = getNumber(regexString);
@@ -22,7 +23,7 @@ const getOctal = (
                 value: "nulCharacter",
             },
         };
-    if (number <= numberOfBackreferences) {
+    if (number <= numberOfBackreferences && !inCharacterSet) {
         return {
             nextIndex: index + length,
             token: {
