@@ -26,9 +26,10 @@ function tokenize(regex) {
     */
     const dots = findInstancesInCharacterArray(dotRegex, pattern);
     const characterSetStack = [];
-    const inCharacterSet = characterSetStack.length > 0;
+    
     let i = 0;
     while (i < pattern.length) {
+        const inCharacterSet = characterSetStack.length > 0;
         const next = pattern[i];
         switch (next) {
             case "\\": {
@@ -75,18 +76,56 @@ function tokenize(regex) {
                 i++;
                 break;
             }
+            case "-": {
+                const lastElement = last(last(stack));
+                const nextElement = pattern[i + 1];
+                if (inCharacterSet && lastElement < nextElement) {
+                        lastElement.regex += `-${nextElement}`;
+                        lastElement.value = `character between ${lastElement} and ${nextElement}`;
+                        i+= 2;
+                        break;
+                    }
+                last(stack).push({
+                    quantifier: "exactlyOne",
+                    regex: "-",
+                    type: "literal",
+                    value: "-"
+                });
+                i++;
+                break;
+            }
             /* 
                 Placing the . case after the escape 
                 Means we don't have to test the case of
                 an escaped period
             */
             case ".": {
+                if (inCharacterSet) {
+                    last(stack).push({
+                        quantifier: "exactlyOne",
+                        regex: ".",
+                        type: "literal",
+                        value: "."
+                    });
+                    i++;
+                    break;
+                }
                 const period = handlePeriod(flags.includes("s"), i, dots);
                 last(stack).push(period);
                 i++;
                 continue;
             }
             case "(": {
+                if (inCharacterSet) {
+                    last(stack).push({
+                        quantifier: "exactlyOne",
+                        regex: "(",
+                        type: "literal",
+                        value: "("
+                    });
+                    i++;
+                    break;
+                }
                 const nextCharacter = pattern[i + 1];
                 if (nextCharacter === "?") {
                     switch (pattern[i + 2]) {
@@ -161,6 +200,16 @@ function tokenize(regex) {
                 break;
             }
             case ")": {
+                if (inCharacterSet) {
+                    last(stack).push({
+                        quantifier: "exactlyOne",
+                        regex: ")",
+                        type: "literal",
+                        value: ")"
+                    });
+                    i++;
+                    break;
+                }
                 if (stack.length < 1) {
                     throw new Error(`No group to close at index ${i}`);
                 }
@@ -191,6 +240,16 @@ function tokenize(regex) {
                 break;
             }
             case "{": {
+                if (inCharacterSet) {
+                    last(stack).push({
+                        quantifier: "exactlyOne",
+                        regex: "{",
+                        type: "literal",
+                        value: "{"
+                    });
+                    i++;
+                    break;
+                }
                 const closingBrace = pattern.indexOf("}", i + 1);
                 const betweenBraces = pattern.slice(i + 1, closingBrace);
                 const lastElement = last(last(stack));
@@ -206,6 +265,16 @@ function tokenize(regex) {
                 break;
             }
             case "[": {
+                if (inCharacterSet) {
+                    last(stack).push({
+                        quantifier: "exactlyOne",
+                        regex: "[",
+                        type: "literal",
+                        value: "["
+                    });
+                    i++;
+                    break;
+                }
                 characterSetStack.push(i);
                 const nextCharacter = pattern[i + 1];
                 if (nextCharacter === "^") {
