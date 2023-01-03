@@ -55,6 +55,26 @@ function tokenize(regex) {
                 i = index;
                 break;
             }
+            case "|": {
+                if (inCharacterSet) {
+                    last(stack).push({
+                        quantifier: "exactlyOne",
+                        regex: "|",
+                        type: "literal",
+                        value: "|"
+                    });
+            
+                } else {
+                    last(stack).push({
+                        quantifier: "exactlyOne",
+                        regex: "|",
+                        type: "alternation",
+                        value: " OR "
+                    });
+                }
+                i++;
+                break;
+            }
             /* 
                 Placing the . case after the escape 
                 Means we don't have to test the case of
