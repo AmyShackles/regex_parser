@@ -6,8 +6,11 @@ const { handleQuantifiers } = require("./handleQuantifiers");
 const last = (stack) => stack[stack.length - 1];
 
 const getPatternAndFlags = (regex) => {
-    const { flags, source } = new RegExp(regex);
-
+    if (typeof regex === "string") {
+        const { flags, source } = new RegExp(regex);
+        return { flags, pattern: source };
+    }
+    const { flags, source } = regex;
     return { flags, pattern: source };
 };
 
@@ -79,9 +82,9 @@ function tokenize(regex) {
             case "-": {
                 const lastElement = last(last(stack));
                 const nextElement = pattern[i + 1];
-                if (inCharacterSet && lastElement < nextElement) {
+                if (inCharacterSet && lastElement.value < nextElement && nextElement !== "]") {
                         lastElement.regex += `-${nextElement}`;
-                        lastElement.value = `character between ${lastElement} and ${nextElement}`;
+                        lastElement.value = `character between ${lastElement.value} and ${nextElement}`;
                         i+= 2;
                         break;
                     }
@@ -407,13 +410,17 @@ function tokenize(regex) {
                 i++;
                 break;
             }
-        }
+        } 
     }
     if (stack.length !== 1) {
         throw new Error("Unmatched groups in regular expression");
     }
+    console.log(JSON.stringify(stack[0], undefined, 2));
     return stack[0];
 }
+
+tokenize(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[{3}a-z0-9-]*[a-z0-9])?/);
+
 
 module.exports = {
     dotRegex,
