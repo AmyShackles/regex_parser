@@ -29,7 +29,7 @@ function tokenize(regex) {
     */
     const dots = findInstancesInCharacterArray(dotRegex, pattern);
     const characterSetStack = [];
-    
+
     let i = 0;
     while (i < pattern.length) {
         const inCharacterSet = characterSetStack.length > 0;
@@ -65,15 +65,14 @@ function tokenize(regex) {
                         quantifier: "exactlyOne",
                         regex: "|",
                         type: "literal",
-                        value: "|"
+                        value: "|",
                     });
-            
                 } else {
                     last(stack).push({
                         quantifier: "exactlyOne",
                         regex: "|",
                         type: "alternation",
-                        value: " OR "
+                        value: " OR ",
                     });
                 }
                 i++;
@@ -82,17 +81,21 @@ function tokenize(regex) {
             case "-": {
                 const lastElement = last(last(stack));
                 const nextElement = pattern[i + 1];
-                if (inCharacterSet && lastElement.value < nextElement && nextElement !== "]") {
-                        lastElement.regex += `-${nextElement}`;
-                        lastElement.value = `character between ${lastElement.value} and ${nextElement}`;
-                        i+= 2;
-                        break;
-                    }
+                if (
+                    inCharacterSet
+                    && lastElement.value < nextElement
+                    && nextElement !== "]"
+                ) {
+                    lastElement.regex += `-${nextElement}`;
+                    lastElement.value = `character between ${lastElement.value} and ${nextElement}`;
+                    i += 2;
+                    break;
+                }
                 last(stack).push({
                     quantifier: "exactlyOne",
                     regex: "-",
                     type: "literal",
-                    value: "-"
+                    value: "-",
                 });
                 i++;
                 break;
@@ -108,7 +111,7 @@ function tokenize(regex) {
                         quantifier: "exactlyOne",
                         regex: ".",
                         type: "literal",
-                        value: "."
+                        value: ".",
                     });
                     i++;
                     break;
@@ -124,7 +127,7 @@ function tokenize(regex) {
                         quantifier: "exactlyOne",
                         regex: "(",
                         type: "literal",
-                        value: "("
+                        value: "(",
                     });
                     i++;
                     break;
@@ -208,7 +211,7 @@ function tokenize(regex) {
                         quantifier: "exactlyOne",
                         regex: ")",
                         type: "literal",
-                        value: ")"
+                        value: ")",
                     });
                     i++;
                     break;
@@ -248,7 +251,7 @@ function tokenize(regex) {
                         quantifier: "exactlyOne",
                         regex: "{",
                         type: "literal",
-                        value: "{"
+                        value: "{",
                     });
                     i++;
                     break;
@@ -256,11 +259,7 @@ function tokenize(regex) {
                 const closingBrace = pattern.indexOf("}", i + 1);
                 const betweenBraces = pattern.slice(i + 1, closingBrace);
                 const lastElement = last(last(stack));
-                const range = handleRange(
-                    lastElement,
-                    betweenBraces,
-                    i + 1
-                );
+                const range = handleRange(lastElement, betweenBraces, i + 1);
                 if (range.token) {
                     last(stack).push(range.token);
                 }
@@ -273,7 +272,7 @@ function tokenize(regex) {
                         quantifier: "exactlyOne",
                         regex: "[",
                         type: "literal",
-                        value: "["
+                        value: "[",
                     });
                     i++;
                     break;
@@ -410,7 +409,7 @@ function tokenize(regex) {
                 i++;
                 break;
             }
-        } 
+        }
     }
     if (stack.length !== 1) {
         throw new Error("Unmatched groups in regular expression");
@@ -419,8 +418,9 @@ function tokenize(regex) {
     return stack[0];
 }
 
-tokenize(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[{3}a-z0-9-]*[a-z0-9])?/);
-
+tokenize(
+    /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[{3}a-z0-9-]*[a-z0-9])?/
+);
 
 module.exports = {
     dotRegex,
