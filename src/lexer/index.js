@@ -29,8 +29,19 @@ function tokenize(regex) {
     */
     const dots = findInstancesInCharacterArray(dotRegex, pattern);
     const characterSetStack = [];
-
+    const multiline = flags.includes("m");
     let i = 0;
+    if (pattern[0] === "^") {
+        stack.push([
+            {
+                quantifier: "",
+                regex: "^",
+                type: "anchor",
+                value: multiline ? "Match start of line" : "Match start of text",
+            }
+        ]);
+        i++;
+    }
     while (i < pattern.length) {
         const inCharacterSet = characterSetStack.length > 0;
         const next = pattern[i];
@@ -414,13 +425,12 @@ function tokenize(regex) {
     if (stack.length !== 1) {
         throw new Error("Unmatched groups in regular expression");
     }
-    console.log(JSON.stringify(stack[0], undefined, 2));
     return stack[0];
 }
 
-tokenize(
-    /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[{3}a-z0-9-]*[a-z0-9])?/
-);
+console.log(JSON.stringify(tokenize(
+    /^((https?:)(\/\/\/?)([\w]*(?::[\w]*)?@)?([\d\w\.-]+)(?::(\d+))?)?([\/\\\w\.()-]*)?(?:([?][^#]*)?(#.*)?)*/
+), undefined, 2));
 
 module.exports = {
     dotRegex,
